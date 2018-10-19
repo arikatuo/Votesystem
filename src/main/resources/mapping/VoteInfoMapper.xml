@@ -151,4 +151,25 @@
       vi_optionnum = #{voteOptionNum,jdbcType=INTEGER}
     where id = #{voteId,jdbcType=INTEGER}
   </update>
+
+  <select id="getVoterNum" resultType="java.util.HashMap" >
+     select
+    COUNT(id) as voterNum , sv_isvoted as voteState
+    from tstaff_vote
+    where sv_viid = #{voteId,jdbcType=INTEGER} GROUP BY sv_isvoted DESC
+  </select>
+
+  <select id="getVoteOptionNum" resultType="java.util.HashMap" >
+     SELECT
+	o.voi_name as voteName,
+	s.vsi_num as voteNum
+    FROM
+	tvote_option_info o,
+	tvote_situation_info s,
+	tvote_info v
+    WHERE
+	o.id = s.vsi_voiid
+    AND s.vsi_viid = v.id
+    AND v.id = 1 #{voteId,jdbcType=INTEGER}
+  </select>
 </mapper>

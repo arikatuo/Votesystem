@@ -4,6 +4,9 @@ import com.hundsun.votesystem.model.VoteInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.List;
+
 @Mapper
 @Component
 public interface VoteInfoMapper {
@@ -18,4 +21,10 @@ public interface VoteInfoMapper {
     int updateByPrimaryKeySelective(VoteInfo record);
 
     int updateByPrimaryKey(VoteInfo record);
+
+    //获取投票参与人数
+    List<HashMap<Integer,Integer>> getVoterNum(Integer voteId);
+
+    //获取选项投票情况
+    List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
 }
