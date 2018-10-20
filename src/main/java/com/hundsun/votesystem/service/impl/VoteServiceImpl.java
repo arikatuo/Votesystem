@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -74,4 +75,30 @@ public class VoteServiceImpl implements VoteServiceBase {
         }
         return result;
     }
+    
+    @Override
+	public void updateVoteStatus(VoteInfo voteInfo) {
+		//VoteInfo vote = voteInfoMapper.selectByPrimaryKey(voteid);
+		System.out.println(voteInfo);
+		 Date now = new Date(); 
+	        try {
+	            Date createtime = voteInfo.getVoteCreateTime();
+	            Date endtime = voteInfo.getVoteEndTime();
+	            if (now.getTime() < createtime.getTime()) {
+	                System.out.println("------现在投票还未开始------");
+	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 0);
+	            } else if (now.getTime() >= createtime.getTime() && now.getTime() < endtime.getTime()) {
+	                System.out.println("------投票正在进行------");
+	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 1);
+	            } else if (now.getTime() >= endtime.getTime()){
+	            	System.out.println("------投票已经结束------");
+	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 2);
+	            }
+	        } catch (Exception exception) {
+	            exception.printStackTrace();
+	        }
+	        System.out.println("------投票状态已更新------");
+		return;
+		
+	}
 }

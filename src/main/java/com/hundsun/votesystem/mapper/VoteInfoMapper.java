@@ -2,6 +2,7 @@ package com.hundsun.votesystem.mapper;
 
 import com.hundsun.votesystem.model.VoteInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -27,4 +28,7 @@ public interface VoteInfoMapper {
 
     //获取选项投票情况
     List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
+    
+    //更新数据库投票状态
+    void updateStatus(@Param("voteId")Integer voteId, @Param("voteStatus")Integer voteStatus);
 }

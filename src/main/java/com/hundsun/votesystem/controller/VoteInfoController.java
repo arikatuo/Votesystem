@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.hundsun.votesystem.model.ReturnData;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
+import com.hundsun.votesystem.util.ThreadVote;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,6 +51,7 @@ public class VoteInfoController {
         } catch (Exception e) {
             returnData.setReturnMsg("error");
             returnData.setReturnMsgDetail(e.getMessage());
+          
         }
         return new Gson().toJson(returnData);
     }

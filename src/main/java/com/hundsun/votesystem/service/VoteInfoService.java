@@ -17,5 +17,5 @@ public interface VoteInfoService {
     List<HashMap<Integer,Integer>> getVoterNum(Integer voteInfoId);
 
     List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
-
+    
 }

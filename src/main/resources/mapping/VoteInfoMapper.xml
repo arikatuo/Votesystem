@@ -172,4 +172,10 @@
     AND s.vsi_viid = v.id
     AND v.id = #{voteId,jdbcType=INTEGER}
   </select>
+  
+  <update id="updateStatus" >
+    update tvote_info
+    set vi_status = #{voteStatus,jdbcType=INTEGER}
+    where id = #{voteId,jdbcType=INTEGER}
+  </update>
 </mapper>
