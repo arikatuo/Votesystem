@@ -24,8 +24,8 @@ public class VoteInfoServiceimpl implements VoteInfoService {
     }
 
     @Override
-    public List<HashMap<Integer,Integer>> getVoterNum(Integer voteInfoId) {
-        List<HashMap<Integer,Integer>> voteNum=voteInfoMapper.getVoterNum(voteInfoId);
+    public List<HashMap<String,Integer>> getVoterNum(Integer voteInfoId) {
+        List<HashMap<String,Integer>> voteNum=voteInfoMapper.getVoterNum(voteInfoId);
         return voteNum;
     }
 

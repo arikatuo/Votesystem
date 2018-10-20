@@ -22,17 +22,17 @@ public class VoteInfoController {
     //通过voteInfoId获取投票详情
     @RequestMapping("finalvoteinfo")
     public String test(int voteInfoId){
-        HashMap<String,Integer> voterNum=new HashMap<>();
-        HashMap<String,Object> totalResult=new HashMap<>();
-        VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
-        List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
-        List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
-        voterNum.put("hasvote",num.get(0).get("voterNum"));
-        voterNum.put("novote",num.get(1).get("voterNum"));
-        totalResult.put("voteInfo",voteInfo);
-        totalResult.put("voternum",num);
-        totalResult.put("optionNum",optionNum);
-        return new Gson().toJson(totalResult);
+//        HashMap<String,Integer> voterNum=new HashMap<>();
+//        HashMap<String,Object> totalResult=new HashMap<>();
+//        VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
+//        List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
+//        List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
+//        voterNum.put("hasvote",num.get(0).get("voterNum"));
+//        voterNum.put("novote",num.get(1).get("voterNum"));
+//        totalResult.put("voteInfo",voteInfo);
+//        totalResult.put("voternum",num);
+//        totalResult.put("optionNum",optionNum);
+//        return new Gson().toJson(totalResult);
         HashMap<String,Object> totalResult= null;
         HashMap<String,Object> voterNum=new HashMap<>();
         ReturnData returnData=new ReturnData();
@@ -40,8 +40,8 @@ public class VoteInfoController {
         try {
             totalResult = new HashMap<>();
             VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
-            List<HashMap<Integer,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
-            List<HashMap<Integer,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
+            List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
+            List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
             if (num.size()>1){
 				voterNum.put("hasvote",num.get(0).get("voterNum"));
 				voterNum.put("novote",num.get(1).get("voterNum"));

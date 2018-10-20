@@ -19,16 +19,6 @@ public class MyVoteController {
     //通过id搜索投票
     @RequestMapping("getmyvote")
     public String getStaffById(int staffid){
-
-//        List<StaffInfo> staffInfos=new ArrayList<>();
-//        ReturnData returnData=new ReturnData();
-//        try {
-//            staffInfos=voteServiceBase.getStaffInfoById(staffid);
-//            returnData.setReturnObject(staffInfos);
-//        }catch (Exception ex){
-//            returnData.setReturnMsg("error");
-//            returnData.setReturnMsgDetail(ex.getMessage());
-//        }
-        return "";
+        return new Gson().toJson(voteServiceBase.getClassificationVoteInfo(staffid));
     }
 }
