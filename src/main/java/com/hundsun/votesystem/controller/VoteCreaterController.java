@@ -6,6 +6,7 @@ import com.hundsun.votesystem.model.ReturnData;
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.impl.VoteServiceImpl;
+import com.hundsun.votesystem.util.ThreadVote;
 import com.hundsun.votesystem.util.VoteConsant;
 import com.hundsun.votesystem.util.VoteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,6 +116,10 @@ public class VoteCreaterController {
             VoteInfo voteInfo=new VoteInfo(voteName,new Date(),voteBeginTime,voteEndTime,
                     0,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum);
             voteServiceBase.createVote(voteInfo,staffList,voteOptionList);
+         
+            //启动一个实时更新的线程
+            ThreadVote threadVote = new ThreadVote(voteInfo,voteServiceBase);
+            threadVote.start();
         }catch (Exception ex){
             returnData.setReturnMsg("error");
             returnData.setReturnMsgDetail(ex.getMessage());

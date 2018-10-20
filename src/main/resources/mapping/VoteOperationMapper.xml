@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.votesystem.mapper.VoteOperationMapper">
+    <delete id="deleteVote" parameterType="java.lang.Integer">
+    DELETE
+    sv.*,
+    vdi.*,
+    vi.*,
+    io.*,
+    si.*
+    FROM
+    tstaff_vote sv,
+    tstaff_vote_detail_info vdi,
+    tvote_info vi,
+    tvote_option_info io,
+    tvote_situation_info si
+    WHERE
+    sv.sv_viid=vi.id
+    AND
+    vdi.svdi_viid=vi.id
+    AND
+    io.voi_viid=vi.id
+    AND
+    si.vsi_viid=vi.id
+    AND
+    vi.id=#{voteInfoId,jdbcType=INTEGER}
+  </delete>
+</mapper>

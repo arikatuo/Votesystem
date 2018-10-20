@@ -1,9 +1,6 @@
 package com.hundsun.votesystem.service.impl;
 
-import com.hundsun.votesystem.mapper.StaffInfoMapper;
-import com.hundsun.votesystem.mapper.TstaffVoteMapper;
-import com.hundsun.votesystem.mapper.VoteInfoMapper;
-import com.hundsun.votesystem.mapper.VoteOptionMapper;
+import com.hundsun.votesystem.mapper.*;
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.model.VoteOption;
@@ -13,6 +10,9 @@ import com.hundsun.votesystem.util.VoteConsant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.*;
 
 @Service
@@ -26,6 +26,8 @@ public class VoteServiceImpl implements VoteServiceBase {
     private TstaffVoteMapper tstaffVoteMapper;
     @Autowired
     private VoteOptionMapper voteOptionMapper;
+    @Autowired
+	private VoteOperationMapper voteOperationMapper;
 
     @Override
     public List<StaffInfo> getStaffInfoById(int staffid) {
@@ -134,4 +136,36 @@ public class VoteServiceImpl implements VoteServiceBase {
         }
         return result;
     }
+
+    @Override
+	public void updateVoteStatus(VoteInfo voteInfo) {
+		//VoteInfo vote = voteInfoMapper.selectByPrimaryKey(voteid);
+		System.out.println(voteInfo);
+		 Date now = new Date();
+	        try {
+	            Date createtime = voteInfo.getVoteCreateTime();
+	            Date endtime = voteInfo.getVoteEndTime();
+	            if (now.getTime() < createtime.getTime()) {
+	                System.out.println("------现在投票还未开始------");
+	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 0);
+	            } else if (now.getTime() >= createtime.getTime() && now.getTime() < endtime.getTime()) {
+	                System.out.println("------投票正在进行------");
+	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 1);
+	            } else if (now.getTime() >= endtime.getTime()){
+	            	System.out.println("------投票已经结束------");
+	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 2);
+	            }
+	        } catch (Exception exception) {
+	            exception.printStackTrace();
+	        }
+	        System.out.println("------投票状态已更新------");
+		return;
+
+	}
+
+	@Override
+	public int deleteVote(int voteInfoId){
+		int num=voteOperationMapper.deleteVote(voteInfoId);
+    	return num;
+	}
 }
