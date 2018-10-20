@@ -170,6 +170,6 @@
     WHERE
 	o.id = s.vsi_voiid
     AND s.vsi_viid = v.id
-    AND v.id = 1 #{voteId,jdbcType=INTEGER}
+    AND v.id = #{voteId,jdbcType=INTEGER}
   </select>
 </mapper>
