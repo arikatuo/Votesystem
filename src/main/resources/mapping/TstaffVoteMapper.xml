@@ -6,6 +6,12 @@
     id, sv_siid, sv_viid, sv_isvoted
   </sql>
 
+  <select id="getVoteInfoIdList"  resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select sv_viid
+    from tstaff_vote
+    where sv_siid = #{staffId,jdbcType=INTEGER} and sv_isvoted=1
+  </select>
+
   <insert id="insert"  >
     insert into tstaff_vote ( sv_siid, sv_viid)
     values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER})

@@ -24,6 +24,22 @@
     from tvote_info
     where id = #{voteId,jdbcType=INTEGER}
   </select>
+
+
+  <select id="selectVoteInfoListBycreterId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  select
+  <include refid="Base_Column_List" />
+  from tvote_info
+  where vi_createrid = #{createrId,jdbcType=INTEGER}
+</select>
+
+  <select id="selectEndVoteInfoList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from tvote_info
+    where vi_status = 2
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tvote_info
     where id = #{voteId,jdbcType=INTEGER}

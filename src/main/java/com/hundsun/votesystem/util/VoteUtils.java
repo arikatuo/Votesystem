@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VoteUtils {
+
     //将参数中带逗号的str转换为list
     public static List<Integer> str2Integerlist(String str){
         List<Integer> list=new ArrayList<>();

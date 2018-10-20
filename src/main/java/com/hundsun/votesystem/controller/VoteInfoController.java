@@ -22,8 +22,8 @@ public class VoteInfoController {
         HashMap<String,Integer> voterNum=new HashMap<>();
         HashMap<String,Object> totalResult=new HashMap<>();
         VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
-        List<HashMap<Integer,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
-        List<HashMap<Integer,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
+        List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
+        List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
         voterNum.put("hasvote",num.get(0).get("voterNum"));
         voterNum.put("novote",num.get(1).get("voterNum"));
         totalResult.put("voteInfo",voteInfo);

@@ -14,8 +14,8 @@ public interface VoteInfoService {
     VoteInfo selectByPrimaryKey(Integer voteId);
 
     //获取投票参与人数
-    List<HashMap<Integer,Integer>> getVoterNum(Integer voteInfoId);
+    List<HashMap<String,Integer>> getVoterNum(Integer voteInfoId);
 
-    List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
+    List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId);
 
 }
