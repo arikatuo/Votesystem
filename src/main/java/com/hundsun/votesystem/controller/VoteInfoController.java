@@ -23,7 +23,7 @@ public class VoteInfoController {
     @RequestMapping("finalvoteinfo")
     public String test(int voteInfoId){
         HashMap<String,Object> totalResult= null;
-        HashMap<String,Integer> voterNum=new HashMap<>();
+        HashMap<String,Object> voterNum=new HashMap<>();
         ReturnData returnData=new ReturnData();
         Integer state = 1;
         try {

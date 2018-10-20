@@ -1,9 +1,6 @@
 package com.hundsun.votesystem.service.impl;
 
-import com.hundsun.votesystem.mapper.StaffInfoMapper;
-import com.hundsun.votesystem.mapper.TstaffVoteMapper;
-import com.hundsun.votesystem.mapper.VoteInfoMapper;
-import com.hundsun.votesystem.mapper.VoteOptionMapper;
+import com.hundsun.votesystem.mapper.*;
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.model.VoteOption;
@@ -26,6 +23,8 @@ public class VoteServiceImpl implements VoteServiceBase {
     private TstaffVoteMapper tstaffVoteMapper;
     @Autowired
     private VoteOptionMapper voteOptionMapper;
+    @Autowired
+	private VoteOperationMapper voteOperationMapper;
 
     @Override
     public List<StaffInfo> getStaffInfoById(int staffid) {
@@ -100,5 +99,11 @@ public class VoteServiceImpl implements VoteServiceBase {
 	        System.out.println("------投票状态已更新------");
 		return;
 		
+	}
+
+	@Override
+	public int deleteVote(int voteInfoId){
+		int num=voteOperationMapper.deleteVote(voteInfoId);
+    	return num;
 	}
 }
