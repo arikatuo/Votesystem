@@ -116,6 +116,7 @@ public class VoteCreaterController {
             VoteInfo voteInfo=new VoteInfo(voteName,new Date(),voteBeginTime,voteEndTime,
                     0,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum);
             voteServiceBase.createVote(voteInfo,staffList,voteOptionList);
+            returnData.setReturnObject(voteInfo);
          
             //启动一个实时更新的线程
             ThreadVote threadVote = new ThreadVote(voteInfo,voteServiceBase);

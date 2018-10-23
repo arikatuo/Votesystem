@@ -85,9 +85,9 @@ public class VoteServiceImpl implements VoteServiceBase {
    @Override
     public Map<String, List<VoteInfoWithStaffNum>> getClassificationVoteInfo(int staffId) {
         Map<String,List<VoteInfoWithStaffNum>> voteInfoMap=new HashMap<>();
-        List<VoteInfoWithStaffNum> voteInfoWithStaffNums=new ArrayList<>();
 
         //创建者所有投票
+       List<VoteInfoWithStaffNum> voteInfoWithStaffNums=new ArrayList<>();
         List<VoteInfo> voteInfoList= voteInfoMapper.selectVoteInfoListBycreterId(staffId);
         for(VoteInfo vinfo:voteInfoList){
             VoteInfoWithStaffNum voteInfoWithStaffNum=setStaffNum(vinfo);
@@ -106,12 +106,15 @@ public class VoteServiceImpl implements VoteServiceBase {
 
        //参与者所有投票
        List<VoteInfoWithStaffNum> voteInfoWithStaffNumsParticipant=new ArrayList<>();
-       List<Integer> voteInfoIdList=tstaffVoteMapper.getVoteInfoIdList(1);
-       for(int i:voteInfoIdList){
-           VoteInfo voteInfo=voteInfoMapper.selectByPrimaryKey(i);
-           VoteInfoWithStaffNum voteInfoWithStaffNum= setStaffNum(voteInfo);
-           voteInfoWithStaffNumsParticipant.add(voteInfoWithStaffNum);
+      for(VoteInfoWithStaffNum v:voteInfoWithStaffNums){
+          if(v.getVoteStatus()==2)
+              voteInfoWithStaffNumsParticipant.add(v);
+      }
+       for(VoteInfoWithStaffNum v:voteInfoWithStaffNumsEnd){
+           if(v.getVoteStatus()==2)
+               voteInfoWithStaffNumsParticipant.add(v);
        }
+
        voteInfoMap.put(VoteConsant.VOTE_BY_PARTICIPANT,voteInfoWithStaffNumsParticipant);
         return voteInfoMap;
    }
