@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
-@RequestMapping("votesys")
+@RequestMapping("voteProcess")
 public class VoteController {
     @Autowired
     private IVoteProcessService voteProcessService;
