@@ -17,13 +17,13 @@
     values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER})
   </insert>
 
-  <select id="select" resultType="java.lang.Integer" parameterMap="java.lang.Integer">
+  <select id="select" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     select count (sv_siid)
     from tstaff_vote
     where sv_siid = #{staffId,jdbcType=INTEGER}and sv_viid = #{voteInfroId,jdbcType=INTEGER}
   </select>
 
-  <select id = "isVoted" resultType="java.lang.Integer" parameterMap="java.lang.Integer">
+  <select id = "isVoted" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     select sv_isvoted
     from tstaff_vote
     where sv_siid = #{staffId,jdbcType=INTEGER}and sv_viid = #{voteInfroId,jdbcType=INTEGER}
