@@ -1,4 +1,4 @@
-package log4j;
+package com.hundsun.votesystem.util;
 
 import org.apache.log4j.Logger;
 
