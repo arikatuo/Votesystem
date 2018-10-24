@@ -12,7 +12,6 @@ import java.util.List;
 public interface VoteInfoService {
     //获取投票基本信息
     VoteInfo selectByPrimaryKey(Integer voteId);
-
     //获取投票参与人数
     List<HashMap<String,Integer>> getVoterNum(Integer voteInfoId);
 
