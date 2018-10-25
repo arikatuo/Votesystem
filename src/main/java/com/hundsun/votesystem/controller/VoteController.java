@@ -38,7 +38,9 @@ public class VoteController {
                             .getParameter("voteOptionId"));//投票选项id
                     String optionDetail = request.getParameter("optionDetail");//投票选项详细信息
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    Date voteTime=sdf.parse(request.getParameter("voteTime"));//投票时间
+                    String currentTime = sdf.format(new Date());
+                    Date voteTime = sdf.parse(currentTime);
+//                    Date voteTime=sdf.parse(request.getParameter("voteTime"));//投票时间
                     Map<String,Object> param = new HashMap<String,Object>();
                     param.put("staffId",staffId);
                     param.put("voteInfoId",voteInfoId);
