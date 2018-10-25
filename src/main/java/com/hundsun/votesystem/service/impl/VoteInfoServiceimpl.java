@@ -1,6 +1,9 @@
 package com.hundsun.votesystem.service.impl;
 
+import com.hundsun.votesystem.mapper.TstaffVoteMapper;
 import com.hundsun.votesystem.mapper.VoteInfoMapper;
+import com.hundsun.votesystem.model.StaffInfo;
+import com.hundsun.votesystem.model.TstaffVote;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,8 @@ import org.springframework.stereotype.Service;
 public class VoteInfoServiceimpl implements VoteInfoService {
     @Autowired
     private VoteInfoMapper voteInfoMapper;
+    @Autowired
+    private TstaffVoteMapper staffVoteMapper;
 
     @Override
     public VoteInfo selectByPrimaryKey(Integer voteId) {
@@ -36,7 +41,26 @@ public class VoteInfoServiceimpl implements VoteInfoService {
         return list;
 
     }
-
     
+    /**
+	 * @Title:updateVoter
+	 * @Description:更新投票人列表
+	 * @param1 voteId
+	 * @param2 selStaffList
+	 * @param3 newStaffList
+	 */
+	@Override
+	public VoteInfo updateVoter(Integer voteId,  List<StaffInfo> newStaffList) {
+		
+		staffVoteMapper.deleteByVoteId(voteId);
+		for(StaffInfo staffInfo:newStaffList) {
+			staffVoteMapper.insert(staffInfo.getStaffId(), voteId);	
+		}
+		VoteInfo voteInfo = voteInfoMapper.selectByPrimaryKey(voteId);
+		return voteInfo;
+	}
+
+	
+  
 
 }
