@@ -10,4 +10,7 @@ public interface VoteSituationInfoMapper {
 
     void updateVoteNum(Map<String,Object> param);
 
+    void insert(Map<String,Object> param);
+
+    int select(Map<String,Object> param);
 }

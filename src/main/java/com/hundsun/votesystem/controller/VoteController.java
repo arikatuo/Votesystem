@@ -5,7 +5,7 @@ import com.hundsun.votesystem.model.ReturnData;
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.IVoteProcessService;
-import com.hundsun.votesystem.service.impl.VoteServiceImpl;
+import com.hundsun.votesystem.service.impl.VoteProcessServiceImpl;
 import com.hundsun.votesystem.util.ThreadVote;
 import com.hundsun.votesystem.util.VoteConsant;
 import com.hundsun.votesystem.util.VoteUtils;
@@ -23,14 +23,14 @@ import java.util.*;
 @RequestMapping("voteProcess")
 public class VoteController {
     @Autowired
-    private IVoteProcessService voteProcessService;
+    private VoteProcessServiceImpl voteProcessService;
     //    进行投票
-    @RequestMapping("vote")
+    @PostMapping("vote")
     public  String Vote(HttpServletRequest request,HttpServletResponse response){
 //        判断是否具有投票资格
         ReturnData returnData  = new ReturnData();
         int staffId = Integer.parseInt(request.getParameter("staffId"));//员工ID
-        int voteInfoId = Integer.parseInt((request.getParameter("voteInfroId")));///投票信息ID
+        int voteInfoId = Integer.parseInt((request.getParameter("voteInfoId")));///投票信息ID
         if (voteProcessService.isInStafflist (staffId,voteInfoId)){
             if (!voteProcessService.isVoted(staffId,voteInfoId)){
                 try{
@@ -38,7 +38,7 @@ public class VoteController {
                             .getParameter("voteOptionId"));//投票选项id
                     String optionDetail = request.getParameter("optionDetail");//投票选项详细信息
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String voteTime = sdf.format(new Date());//投票时间
+                    Date voteTime=sdf.parse(request.getParameter("voteTime"));//投票时间
                     Map<String,Object> param = new HashMap<String,Object>();
                     param.put("staffId",staffId);
                     param.put("voteInfoId",voteInfoId);

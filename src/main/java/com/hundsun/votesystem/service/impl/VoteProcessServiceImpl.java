@@ -29,9 +29,15 @@ public class VoteProcessServiceImpl implements IVoteProcessService {
     public String vote(Map<String,Object> param){
         ReturnData returnData=new ReturnData();
 
-        tstaffVoteMapper.changeVoteStatus(param);
         staffVoteDetailInfoMapper.insertVoteInfo(param);
-        voteSituationInfoMapper.updateVoteNum(param);
+        tstaffVoteMapper.changeVoteStatus(param);
+        if (voteSituationInfoMapper.select(param)==0){
+            voteSituationInfoMapper.insert(param);
+        }
+        else{
+            voteSituationInfoMapper.updateVoteNum(param);
+        }
+
 
         returnData.setReturnMsg("sucess！");
         return new Gson().toJson(returnData);
