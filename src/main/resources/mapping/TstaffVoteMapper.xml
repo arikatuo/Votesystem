@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hundsun.votesystem.mapper.TstaffVoteMapper" >
-
+  <resultMap id="BaseResultMap" type="com.hundsun.votesystem.model.TstaffVote" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sv_siid" property="sv_siid" jdbcType="INTEGER" />
+    <result column="sv_viid" property="sv_viid" jdbcType="INTEGER" />
+    <result column="sv_isvoted" property="sv_isvoted" jdbcType="BOOLEAN" />
+  </resultMap>
   <sql id="Base_Column_List" >
     id, sv_siid, sv_viid, sv_isvoted
   </sql>
@@ -16,6 +21,20 @@
     insert into tstaff_vote ( sv_siid, sv_viid)
     values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER})
   </insert>
+  <update id="deleteVoter">
+    delete tstaff_vote
+    where sv_siid = #{svSiid,jdbcType=INTEGER}, sv_viid = #{svViid,jdbcType=INTEGER} 
+  </update>
+  <select id="selectByVoteId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tstaff_vote
+    where sv_viid = #{voteId,jdbcType=INTEGER}
+  </select>
+  <update id="deleteByVoteId">
+    delete tstaff_vote
+    where  sv_viid = #{svViid,jdbcType=INTEGER} 
+  </update>
 
   <select id="select" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     select count(*)

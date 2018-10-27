@@ -1,5 +1,6 @@
 package com.hundsun.votesystem.service;
 
+import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,15 @@ public interface VoteInfoService {
 
     List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId);
 
+
+    
+    
+    
+    //更新投票参与人列表
+    List<StaffInfo> updateStaffList(Integer voteId,  List<StaffInfo> newStaffList);
+    //更新投票部门
+    VoteInfo updateDepart(Integer voteId, Integer departId );
+    
+    
+    
 }

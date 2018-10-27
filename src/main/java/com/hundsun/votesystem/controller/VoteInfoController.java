@@ -2,6 +2,7 @@ package com.hundsun.votesystem.controller;
 
 import com.google.gson.Gson;
 import com.hundsun.votesystem.model.ReturnData;
+import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import com.hundsun.votesystem.util.ThreadVote;
@@ -22,26 +23,15 @@ public class VoteInfoController {
     //通过voteInfoId获取投票详情
     @RequestMapping("finalvoteinfo")
     public String test(int voteInfoId){
-//        HashMap<String,Integer> voterNum=new HashMap<>();
-//        HashMap<String,Object> totalResult=new HashMap<>();
-//        VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
-//        List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
-//        List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
-//        voterNum.put("hasvote",num.get(0).get("voterNum"));
-//        voterNum.put("novote",num.get(1).get("voterNum"));
-//        totalResult.put("voteInfo",voteInfo);
-//        totalResult.put("voternum",num);
-//        totalResult.put("optionNum",optionNum);
-//        return new Gson().toJson(totalResult);
         HashMap<String,Object> totalResult= null;
-        HashMap<String,Object> voterNum=new HashMap<>();
+        HashMap<String,Integer> voterNum=new HashMap<>();
         ReturnData returnData=new ReturnData();
         Integer state = 1;
         try {
             totalResult = new HashMap<>();
             VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
-            List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
-            List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
+            List<HashMap<Integer,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
+            List<HashMap<Integer,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
             if (num.size()>1){
 				voterNum.put("hasvote",num.get(0).get("voterNum"));
 				voterNum.put("novote",num.get(1).get("voterNum"));
@@ -62,9 +52,17 @@ public class VoteInfoController {
         } catch (Exception e) {
             returnData.setReturnMsg("error");
             returnData.setReturnMsgDetail(e.getMessage());
-
+          
         }
         return new Gson().toJson(returnData);
+    }
+    
+    //更新投票参与人信息
+    @RequestMapping("updateVoterByList")
+    public String updateVoterByList(int voteId, List<StaffInfo> newStaffList) {
+    	
+    	voteInfoService.updateVoter(voteId, newStaffList);
+    	return "success";
     }
 
 }
