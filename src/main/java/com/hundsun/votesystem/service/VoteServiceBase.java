@@ -23,11 +23,12 @@ public interface VoteServiceBase {
     //获取所有员工
     List<StaffInfo> getAllStaff();
 
+
     //获取不同类型的voteinfo
     Map<String,List<VoteInfoWithStaffNum>> getClassificationVoteInfo(int staffId);
 
     //创建投票
-    int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList);
+    int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList,int departmentId,int voteAuthorityType);
     //更新投票状态
     void updateVoteStatus(VoteInfo voteInfo);
 

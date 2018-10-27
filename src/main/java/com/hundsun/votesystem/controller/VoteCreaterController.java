@@ -92,15 +92,20 @@ public class VoteCreaterController {
     //创建投票
     @PostMapping("createvote")
     public String createVote(HttpServletRequest request, HttpServletResponse response){
+        List<String> voteOptionList = new ArrayList<>();//选项列表
+        List<Integer> staffList=new ArrayList<>();//员工列表
+        int departmentId=-1;//部门
         ReturnData returnData=new ReturnData();
         try{
-            List<Integer> staffList= VoteUtils.str2Integerlist(request.getParameter("staffList"));
+            voteOptionList=VoteUtils.str2Stringlist(request.getParameter("voteOptionList"));
             int voteAuthorityType=1;
             String voteAuthorityTypeString=request.getParameter("viAuthorityType");
             if(voteAuthorityTypeString!=null)
                 voteAuthorityType= Integer.parseInt(request.getParameter("viAuthorityType"));
-            List<String> voteOptionList=VoteUtils.str2Stringlist(request.getParameter("voteOptionList"));
-
+            if(voteAuthorityType==1)
+                staffList= VoteUtils.str2Integerlist(request.getParameter("staffList"));
+            if(voteAuthorityType==0)
+                departmentId= Integer.parseInt(request.getParameter("departmentId"));
             SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String voteName=request.getParameter("voteName");
             int voteCreaterId= Integer.parseInt(request.getParameter("voteCreaterId"));
@@ -119,7 +124,7 @@ public class VoteCreaterController {
             Date voteEndTime= sdf.parse(request.getParameter("voteEndTime"));
             VoteInfo voteInfo=new VoteInfo(voteName,new Date(),voteBeginTime,voteEndTime,
                     0,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum,voteAuthorityType);
-            voteServiceBase.createVote(voteInfo,staffList,voteOptionList);
+            voteServiceBase.createVote(voteInfo,staffList,voteOptionList,departmentId,voteAuthorityType);
             returnData.setReturnObject(voteInfo);
          
             //启动一个实时更新的线程

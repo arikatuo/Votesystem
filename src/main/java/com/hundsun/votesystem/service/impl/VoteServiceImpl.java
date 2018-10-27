@@ -28,6 +28,8 @@ public class VoteServiceImpl implements VoteServiceBase {
     private VoteOptionMapper voteOptionMapper;
     @Autowired
 	private VoteOperationMapper voteOperationMapper;
+    @Autowired
+    private StaffVoteDetailInfoMapper staffVoteDetailInfoMapper;
 
     @Override
     public List<StaffInfo> getStaffInfoById(int staffid) {
@@ -77,6 +79,8 @@ public class VoteServiceImpl implements VoteServiceBase {
             if (voteStatus == 1)
                 staffNumVoted = voteNum;
         }
+        String voteCreaterName=staffInfoMapper.selectByPrimaryKey(voteInfo.getVoteCreaterId()).getSiName();
+        voteInfoWithStaffNum.setVoteCreaterName(voteCreaterName);
         voteInfoWithStaffNum.setStaffNumVoted(staffNumVoted);
         voteInfoWithStaffNum.setStaffNumNotVoted(staffNumNotVoted);
         return voteInfoWithStaffNum;
@@ -95,39 +99,48 @@ public class VoteServiceImpl implements VoteServiceBase {
         }
         voteInfoMap.put(VoteConsant.VOTE_BY_CREATEID,voteInfoWithStaffNums);
 
-        //已结束所有投票
-       List<VoteInfo> voteInfoListEnd=voteInfoMapper.selectEndVoteInfoList();
-       List<VoteInfoWithStaffNum> voteInfoWithStaffNumsEnd=new ArrayList<>();
-       for(VoteInfo vinfo:voteInfoListEnd){
-           VoteInfoWithStaffNum voteInfoWithStaffNum=setStaffNum(vinfo);
-           voteInfoWithStaffNumsEnd.add(voteInfoWithStaffNum);
-       }
-       voteInfoMap.put(VoteConsant.VOTE_END,voteInfoWithStaffNumsEnd);
+        //我参与的投票
+        List<Integer> voteIdList=staffVoteDetailInfoMapper.selectVoteInfoIdByPartId(staffId);
+        Set<Integer> voteIdSet=new HashSet<>();
+        //去重
+        for(Integer i:voteIdList)
+            voteIdSet.add(i);
+        List<VoteInfoWithStaffNum> voteInfoWithStaffNumsParticipant=new ArrayList<>();
+        for(int i:voteIdSet){
+           VoteInfo vo=voteInfoMapper.selectByPrimaryKey(i);
+           VoteInfoWithStaffNum voteInfoWithStaffNum=setStaffNum(vo);
+           voteInfoWithStaffNumsParticipant.add(voteInfoWithStaffNum);
+        }
+        voteInfoMap.put(VoteConsant.VOTE_BY_PARTICIPANT,voteInfoWithStaffNumsParticipant);
 
-       //参与者所有投票
-       List<VoteInfoWithStaffNum> voteInfoWithStaffNumsParticipant=new ArrayList<>();
+
+       //我参与的 我创建的中已经结束的投票
+       List<VoteInfoWithStaffNum> voteInfoWithStaffNumsEnd=new ArrayList<>();
       for(VoteInfoWithStaffNum v:voteInfoWithStaffNums){
           if(v.getVoteStatus()==2)
-              voteInfoWithStaffNumsParticipant.add(v);
+              voteInfoWithStaffNumsEnd.add(v);
       }
-       for(VoteInfoWithStaffNum v:voteInfoWithStaffNumsEnd){
+       for(VoteInfoWithStaffNum v:voteInfoWithStaffNumsParticipant){
            if(v.getVoteStatus()==2)
-               voteInfoWithStaffNumsParticipant.add(v);
+               voteInfoWithStaffNumsEnd.add(v);
        }
 
-       voteInfoMap.put(VoteConsant.VOTE_BY_PARTICIPANT,voteInfoWithStaffNumsParticipant);
+       voteInfoMap.put(VoteConsant.VOTE_END,voteInfoWithStaffNumsEnd);
         return voteInfoMap;
    }
 
     @Override
-    public int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList) {
+    public int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList,int departmentId,int voteAuthorityType) {
         int result=1;
         result= voteInfoMapper.insert(voteInfo);
         int voteInfoId=voteInfo.getVoteId();
+        if(voteAuthorityType==VoteConsant.VOTE_ATHORITY_TYPE_STAFF){
+            for(int staffId:stafflist)
+                tstaffVoteMapper.insert(staffId,voteInfoId);
+        }
+        if(voteAuthorityType==VoteConsant.VOTE_ATHORITY_TYPE_DEPARTMENT){
 
-        //效率低，可改一次性插入多条数据
-        for(int staffId:stafflist)
-            tstaffVoteMapper.insert(staffId,voteInfoId);
+        }
 
         //效率低，可改一次性插入多条数据
         for(String voteOptionName:voteOptionList){
