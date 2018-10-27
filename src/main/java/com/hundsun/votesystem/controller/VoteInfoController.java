@@ -2,6 +2,7 @@ package com.hundsun.votesystem.controller;
 
 import com.google.gson.Gson;
 import com.hundsun.votesystem.model.ReturnData;
+import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import com.hundsun.votesystem.util.ThreadVote;
@@ -54,6 +55,14 @@ public class VoteInfoController {
           
         }
         return new Gson().toJson(returnData);
+    }
+    
+    //更新投票参与人信息
+    @RequestMapping("updateVoterByList")
+    public String updateVoterByList(int voteId, List<StaffInfo> newStaffList) {
+    	
+    	voteInfoService.updateVoter(voteId, newStaffList);
+    	return "success";
     }
 
 }

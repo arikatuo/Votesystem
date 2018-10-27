@@ -11,6 +11,13 @@ import java.util.List;
 @Mapper
 @Component
 public interface VoteInfoMapper {
+
+    List<VoteInfo> selectVoteInfoListBycreterId(Integer createrId);
+
+    List<VoteInfo> selectVoteInfoListByparticipateId(Integer staffId);
+
+    List<VoteInfo> selectEndVoteInfoList();
+
     int deleteByPrimaryKey(Integer voteId);
 
     int insert(VoteInfo record);
@@ -24,7 +31,7 @@ public interface VoteInfoMapper {
     int updateByPrimaryKey(VoteInfo record);
 
     //获取投票参与人数
-    List<HashMap<Integer,Integer>> getVoterNum(Integer voteId);
+    List<HashMap<String,Integer>> getVoterNum(Integer voteId);
 
     //获取选项投票情况
     List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);

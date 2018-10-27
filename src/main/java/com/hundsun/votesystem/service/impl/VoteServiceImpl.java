@@ -1,19 +1,19 @@
 package com.hundsun.votesystem.service.impl;
 
-import com.hundsun.votesystem.mapper.StaffInfoMapper;
-import com.hundsun.votesystem.mapper.TstaffVoteMapper;
-import com.hundsun.votesystem.mapper.VoteInfoMapper;
-import com.hundsun.votesystem.mapper.VoteOptionMapper;
+import com.hundsun.votesystem.mapper.*;
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.model.VoteOption;
+import com.hundsun.votesystem.model.returndata.VoteInfoWithStaffNum;
 import com.hundsun.votesystem.service.VoteServiceBase;
+import com.hundsun.votesystem.util.VoteConsant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.*;
 
 @Service
 public class VoteServiceImpl implements VoteServiceBase {
@@ -26,6 +26,8 @@ public class VoteServiceImpl implements VoteServiceBase {
     private TstaffVoteMapper tstaffVoteMapper;
     @Autowired
     private VoteOptionMapper voteOptionMapper;
+    @Autowired
+	private VoteOperationMapper voteOperationMapper;
 
     @Override
     public List<StaffInfo> getStaffInfoById(int staffid) {
@@ -55,6 +57,68 @@ public class VoteServiceImpl implements VoteServiceBase {
 
     }
 
+    /**
+     * 讲voteinfo转化为VoteInfoWithStaffNum
+     * @param voteInfo
+     * @return
+     */
+    private VoteInfoWithStaffNum setStaffNum(VoteInfo voteInfo){
+        int id=voteInfo.getVoteId();
+        VoteInfoWithStaffNum voteInfoWithStaffNum= new VoteInfoWithStaffNum(voteInfo);
+        List<HashMap<String,Integer>> listhashmap=voteInfoMapper.getVoterNum(id);
+        int staffNumVoted=0;
+        int staffNumNotVoted=0;
+        for(HashMap<String,Integer> hashMap:listhashmap) {
+            int voteStatus = hashMap.get("voteState");
+            String voteNumStr = String.valueOf(hashMap.get("voterNum"));
+            int voteNum=Integer.parseInt(voteNumStr);
+            if (voteStatus == 0)
+                staffNumNotVoted = voteNum;
+            if (voteStatus == 1)
+                staffNumVoted = voteNum;
+        }
+        voteInfoWithStaffNum.setStaffNumVoted(staffNumVoted);
+        voteInfoWithStaffNum.setStaffNumNotVoted(staffNumNotVoted);
+        return voteInfoWithStaffNum;
+
+    }
+   @Override
+    public Map<String, List<VoteInfoWithStaffNum>> getClassificationVoteInfo(int staffId) {
+        Map<String,List<VoteInfoWithStaffNum>> voteInfoMap=new HashMap<>();
+
+        //创建者所有投票
+       List<VoteInfoWithStaffNum> voteInfoWithStaffNums=new ArrayList<>();
+        List<VoteInfo> voteInfoList= voteInfoMapper.selectVoteInfoListBycreterId(staffId);
+        for(VoteInfo vinfo:voteInfoList){
+            VoteInfoWithStaffNum voteInfoWithStaffNum=setStaffNum(vinfo);
+            voteInfoWithStaffNums.add(voteInfoWithStaffNum);
+        }
+        voteInfoMap.put(VoteConsant.VOTE_BY_CREATEID,voteInfoWithStaffNums);
+
+        //已结束所有投票
+       List<VoteInfo> voteInfoListEnd=voteInfoMapper.selectEndVoteInfoList();
+       List<VoteInfoWithStaffNum> voteInfoWithStaffNumsEnd=new ArrayList<>();
+       for(VoteInfo vinfo:voteInfoListEnd){
+           VoteInfoWithStaffNum voteInfoWithStaffNum=setStaffNum(vinfo);
+           voteInfoWithStaffNumsEnd.add(voteInfoWithStaffNum);
+       }
+       voteInfoMap.put(VoteConsant.VOTE_END,voteInfoWithStaffNumsEnd);
+
+       //参与者所有投票
+       List<VoteInfoWithStaffNum> voteInfoWithStaffNumsParticipant=new ArrayList<>();
+      for(VoteInfoWithStaffNum v:voteInfoWithStaffNums){
+          if(v.getVoteStatus()==2)
+              voteInfoWithStaffNumsParticipant.add(v);
+      }
+       for(VoteInfoWithStaffNum v:voteInfoWithStaffNumsEnd){
+           if(v.getVoteStatus()==2)
+               voteInfoWithStaffNumsParticipant.add(v);
+       }
+
+       voteInfoMap.put(VoteConsant.VOTE_BY_PARTICIPANT,voteInfoWithStaffNumsParticipant);
+        return voteInfoMap;
+   }
+
     @Override
     public int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList) {
         int result=1;
@@ -75,12 +139,12 @@ public class VoteServiceImpl implements VoteServiceBase {
         }
         return result;
     }
-    
+
     @Override
 	public void updateVoteStatus(VoteInfo voteInfo) {
 		//VoteInfo vote = voteInfoMapper.selectByPrimaryKey(voteid);
 		System.out.println(voteInfo);
-		 Date now = new Date(); 
+		 Date now = new Date();
 	        try {
 	            Date createtime = voteInfo.getVoteCreateTime();
 	            Date endtime = voteInfo.getVoteEndTime();
@@ -99,6 +163,12 @@ public class VoteServiceImpl implements VoteServiceBase {
 	        }
 	        System.out.println("------投票状态已更新------");
 		return;
-		
+
+	}
+
+	@Override
+	public int deleteVote(int voteInfoId){
+		int num=voteOperationMapper.deleteVote(voteInfoId);
+    	return num;
 	}
 }

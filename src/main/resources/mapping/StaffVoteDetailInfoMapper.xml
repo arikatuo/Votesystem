@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.votesystem.mapper.StaffVoteDetailInfoMapper" >
+
+  <sql id="Base_Column_List" >
+     svdi_siid, svdi_viid, svdi_voiid,svdi_voidetail,svdi_votetime
+  </sql>
+
+  <insert id="insertVoteInfo"  >
+    insert into tstaff_vote_detail_info (svdi_siid, svdi_viid, svdi_voiid, svdi_voidetail, svdi_votetime)
+    values (#{staffId},#{voteInfoId},#{voteOptionId},#{optionDetail},#{voteTime})
+  </insert>
+</mapper>

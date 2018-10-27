@@ -2,9 +2,11 @@ package com.hundsun.votesystem.service;
 
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
+import com.hundsun.votesystem.model.returndata.VoteInfoWithStaffNum;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public interface VoteServiceBase {
@@ -21,8 +23,14 @@ public interface VoteServiceBase {
     //获取所有员工
     List<StaffInfo> getAllStaff();
 
+    //获取不同类型的voteinfo
+    Map<String,List<VoteInfoWithStaffNum>> getClassificationVoteInfo(int staffId);
+
     //创建投票
     int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList);
     //更新投票状态
     void updateVoteStatus(VoteInfo voteInfo);
+
+    //删除投票
+    int deleteVote(int voteInfoId);
 }

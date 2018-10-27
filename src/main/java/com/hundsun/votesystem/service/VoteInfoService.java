@@ -13,18 +13,19 @@ import java.util.List;
 public interface VoteInfoService {
     //获取投票基本信息
     VoteInfo selectByPrimaryKey(Integer voteId);
-
     //获取投票参与人数
-    List<HashMap<Integer,Integer>> getVoterNum(Integer voteInfoId);
+    List<HashMap<String,Integer>> getVoterNum(Integer voteInfoId);
 
-    List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
+    List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId);
+
+
+    
     
     
     //更新投票参与人列表
     List<StaffInfo> updateStaffList(Integer voteId,  List<StaffInfo> newStaffList);
     //更新投票部门
     VoteInfo updateDepart(Integer voteId, Integer departId );
-    
     
     
     

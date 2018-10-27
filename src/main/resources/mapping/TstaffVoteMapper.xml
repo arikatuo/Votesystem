@@ -11,6 +11,12 @@
     id, sv_siid, sv_viid, sv_isvoted
   </sql>
 
+  <select id="getVoteInfoIdList"  resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select sv_viid
+    from tstaff_vote
+    where sv_siid = #{staffId,jdbcType=INTEGER} and sv_isvoted=1
+  </select>
+
   <insert id="insert"  >
     insert into tstaff_vote ( sv_siid, sv_viid)
     values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER})
@@ -30,4 +36,21 @@
     where  sv_viid = #{svViid,jdbcType=INTEGER} 
   </update>
 
+  <select id="select" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*)
+    from tstaff_vote
+    where sv_viid = #{svViid,jdbcType=INTEGER} and sv_siid = #{svSiid,jdbcType=INTEGER}
+  </select>
+
+  <select id = "selectIsVoted" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select sv_isvoted
+    from tstaff_vote
+    where sv_viid = #{svViid,jdbcType=INTEGER} and sv_siid = #{svSiid,jdbcType=INTEGER}
+  </select>
+
+  <update id = "changeVoteStatus" >
+    update tstaff_vote
+    set sv_isvoted = 1
+    where sv_viid = #{voteInfoId,jdbcType=INTEGER} and sv_siid = #{staffId,jdbcType=INTEGER}
+    </update>
 </mapper>

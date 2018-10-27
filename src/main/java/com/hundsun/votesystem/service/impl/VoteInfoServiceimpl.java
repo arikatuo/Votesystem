@@ -8,7 +8,6 @@ import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,17 +29,18 @@ public class VoteInfoServiceimpl implements VoteInfoService {
     }
 
     @Override
-    public List<HashMap<Integer,Integer>> getVoterNum(Integer voteInfoId) {
-        List<HashMap<Integer,Integer>> voteNum=voteInfoMapper.getVoterNum(voteInfoId);
+    public List<HashMap<String,Integer>> getVoterNum(Integer voteInfoId) {
+        List<HashMap<String,Integer>> voteNum=voteInfoMapper.getVoterNum(voteInfoId);
         return voteNum;
     }
 
     @Override
-    public List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId){
-        List<HashMap<Integer,Integer>> list=voteInfoMapper.getVoteOptionNum(voteId);
+    public List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId){
+        List<HashMap<String,Integer>> list=voteInfoMapper.getVoterNum(voteId);
         return list;
 
     }
+
     
     /**
 	 * @Title:updateStaffList
@@ -66,6 +66,6 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 	}
 
 	
-  
+
 
 }
