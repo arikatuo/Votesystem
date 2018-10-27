@@ -6,6 +6,11 @@
      svdi_siid, svdi_viid, svdi_voiid,svdi_voidetail,svdi_votetime
   </sql>
 
+  <select id = "selectVoteInfoIdByPartId" resultType="java.lang.Integer">
+    select (svdi_voiid) from tstaff_vote_detail_info
+    where svdi_siid = #{staffId,jdbcType=INTEGER}
+
+  </select>
   <insert id="insertVoteInfo"  >
     insert into tstaff_vote_detail_info (svdi_siid, svdi_viid, svdi_voiid, svdi_voidetail, svdi_votetime)
     values (#{staffId},#{voteInfoId},#{voteOptionId},#{optionDetail},#{voteTime})

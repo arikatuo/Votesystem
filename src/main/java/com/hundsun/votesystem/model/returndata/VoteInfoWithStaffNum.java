@@ -9,6 +9,15 @@ import java.util.List;
 public class VoteInfoWithStaffNum{
     private int staffNumVoted;//已投票人数
     private int staffNumNotVoted;//未投票人数
+    private String VoteCreaterName;//投票创建人
+
+    public String getVoteCreaterName() {
+        return VoteCreaterName;
+    }
+
+    public void setVoteCreaterName(String voteCreaterName) {
+        VoteCreaterName = voteCreaterName;
+    }
 
     //id
     private Integer voteId;

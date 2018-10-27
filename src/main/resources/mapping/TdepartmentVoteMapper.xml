@@ -19,6 +19,10 @@
     delete from tdepartment_vote
     where id = #{Id,jdbcType=INTEGER}
   </delete>
+  <insert id="insertWithOutId"  >
+    insert into tdepartment_vote ( dv_diid, dv_viid )
+    values ( #{dvDiid,jdbcType=INTEGER}, #{dvViid,jdbcType=INTEGER} )
+  </insert>
   <insert id="insert" parameterType="com.hundsun.votesystem.model.TdepartmentVote" >
     insert into tdepartment_vote (id, dv_diid, dv_viid
       )
