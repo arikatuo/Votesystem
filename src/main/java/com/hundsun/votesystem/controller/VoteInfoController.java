@@ -30,8 +30,8 @@ public class VoteInfoController {
         try {
             totalResult = new HashMap<>();
             VoteInfo voteInfo=voteInfoService.selectByPrimaryKey(voteInfoId);
-            List<HashMap<Integer,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
-            List<HashMap<Integer,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
+            List<HashMap<String,Integer>>  num=voteInfoService.getVoterNum(voteInfoId);
+            List<HashMap<String,Integer>>  optionNum=voteInfoService.getVoteOptionNum(voteInfoId);
             if (num.size()>1){
 				voterNum.put("hasvote",num.get(0).get("voterNum"));
 				voterNum.put("novote",num.get(1).get("voterNum"));
@@ -57,12 +57,6 @@ public class VoteInfoController {
         return new Gson().toJson(returnData);
     }
     
-    //更新投票参与人信息
-    @RequestMapping("updateVoterByList")
-    public String updateVoterByList(int voteId, List<StaffInfo> newStaffList) {
-    	
-    	voteInfoService.updateVoter(voteId, newStaffList);
-    	return "success";
-    }
+    
 
 }

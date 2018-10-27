@@ -50,20 +50,22 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 	 * @param3 newStaffList
 	 */
 	@Override
-	public List<StaffInfo> updateStaffList(Integer voteId,  List<StaffInfo> newStaffList) {
+	public String updateStaffList(Integer voteId,  List<StaffInfo> newStaffList) {
 		
 		staffVoteMapper.deleteByVoteId(voteId);
 		for(StaffInfo staffInfo:newStaffList) {
 			staffVoteMapper.insert(staffInfo.getStaffId(), voteId);	
 		}
-		return newStaffList;
+		return "更新成功";
 	}
-    
+
 	@Override
-	public VoteInfo updateDepart(Integer voteId, Integer departId) {
-		
+	public String updateDepart(Integer voteId, Integer departId) {
+		// TODO Auto-generated method stub
 		return null;
 	}
+    
+	
 
 	
 
