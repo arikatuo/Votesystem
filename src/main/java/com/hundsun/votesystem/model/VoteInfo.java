@@ -32,7 +32,7 @@ public class VoteInfo {
         voteOptionList=new ArrayList<>();
     }
     public VoteInfo(String voteName, Date voteCreateTime ,Date voteBeginTime, Date voteEndTime,
-                    Integer voteStatus, Integer voteCreaterId, Integer voteType, Integer voteTaskInfoId, Integer voteOptionNum) {
+                    Integer voteStatus, Integer voteCreaterId, Integer voteType, Integer voteTaskInfoId, Integer voteOptionNum,Integer voteAuthorityType) {
         this.voteName = voteName;
         this.voteCreateTime=voteCreateTime;
         this.voteBeginTime = voteBeginTime;
@@ -42,6 +42,7 @@ public class VoteInfo {
         this.voteType = voteType;
         this.voteTaskInfoId = voteTaskInfoId;
         this.voteOptionNum = voteOptionNum;
+        this.voteAuthorityType=voteAuthorityType;
         voteOptionList=new ArrayList<>();
 
     }
@@ -78,6 +79,21 @@ public class VoteInfo {
 
     //投票可选数量（多选用）
     private Integer voteOptionNum;
+
+    //投票种类
+    private Integer voteAuthorityType;
+
+    public void setVoteOptionList(List<VoteOption> voteOptionList) {
+        this.voteOptionList = voteOptionList;
+    }
+
+    public Integer getVoteAuthorityType() {
+        return voteAuthorityType;
+    }
+
+    public void setVoteAuthorityType(Integer voteAuthorityType) {
+        this.voteAuthorityType = voteAuthorityType;
+    }
 
     public Integer getVoteId() {
         return voteId;
