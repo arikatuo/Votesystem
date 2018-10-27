@@ -43,21 +43,26 @@ public class VoteInfoServiceimpl implements VoteInfoService {
     }
     
     /**
-	 * @Title:updateVoter
+	 * @Title:updateStaffList
 	 * @Description:更新投票人列表
 	 * @param1 voteId
 	 * @param2 selStaffList
 	 * @param3 newStaffList
 	 */
 	@Override
-	public VoteInfo updateVoter(Integer voteId,  List<StaffInfo> newStaffList) {
+	public List<StaffInfo> updateStaffList(Integer voteId,  List<StaffInfo> newStaffList) {
 		
 		staffVoteMapper.deleteByVoteId(voteId);
 		for(StaffInfo staffInfo:newStaffList) {
 			staffVoteMapper.insert(staffInfo.getStaffId(), voteId);	
 		}
-		VoteInfo voteInfo = voteInfoMapper.selectByPrimaryKey(voteId);
-		return voteInfo;
+		return newStaffList;
+	}
+    
+	@Override
+	public VoteInfo updateDepart(Integer voteId, Integer departId) {
+		
+		return null;
 	}
 
 	

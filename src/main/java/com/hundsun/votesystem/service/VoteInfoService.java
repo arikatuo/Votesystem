@@ -20,7 +20,12 @@ public interface VoteInfoService {
     List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
     
     
-    //更新投票参与人
-    VoteInfo updateVoter(Integer voteId,  List<StaffInfo> newStaffList);
+    //更新投票参与人列表
+    List<StaffInfo> updateStaffList(Integer voteId,  List<StaffInfo> newStaffList);
+    //更新投票部门
+    VoteInfo updateDepart(Integer voteId, Integer departId );
+    
+    
+    
     
 }

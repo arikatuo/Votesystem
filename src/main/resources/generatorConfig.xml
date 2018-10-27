@@ -71,12 +71,17 @@
         <!--&lt;!&ndash;<columnOverride column="si_num" property="staffNum" />&ndash;&gt;-->
         <!--&lt;!&ndash;<columnOverride column="si_departid" property="staffDepartid" />&ndash;&gt;-->
         <!--</table>-->
-        <table tableName="tvote_option_info" domainObjectName="VoteOption" enableCountByExample="false" enableUpdateByExample="false"
+        
+        <table tableName="tdepartment_info" domainObjectName="DepartmentInfo" enableCountByExample="false" enableUpdateByExample="false"
         enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-
-            <columnOverride column="id" property="voteOptionId"  />
-            <columnOverride column="voi_name" property="voteOptionName" />
-
+           <columnOverride column="id" property="departmentId"  /> 
+           <columnOverride column="di_name" property="departmentName"  /> 
+        </table>
+        <table tableName="tdepartment_vote" domainObjectName="DepartmentVote" enableCountByExample="false" enableUpdateByExample="false"
+        enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+           <columnOverride column="id" property="departmentVoteId"  /> 
+           <columnOverride column="dv_diid" property="departmentId"  /> 
+           <columnOverride column="dv_viid" property="VoteId"  /> 
         </table>
     </context>
 </generatorConfiguration>
