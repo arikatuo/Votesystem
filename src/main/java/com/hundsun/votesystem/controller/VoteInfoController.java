@@ -7,9 +7,13 @@ import com.hundsun.votesystem.model.VoteInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import com.hundsun.votesystem.util.ThreadVote;
 
+import com.hundsun.votesystem.util.VoteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +26,9 @@ public class VoteInfoController {
 
     //通过voteInfoId获取投票详情
     @RequestMapping("finalvoteinfo")
-    public String test(int voteInfoId){
+    public String test(HttpServletRequest request, HttpServletResponse response){
+        VoteUtils.kuayuSolution(request,response);
+        int voteInfoId= Integer.parseInt(request.getParameter("voteInfoId"));
         HashMap<String,Object> totalResult= null;
         HashMap<String,Integer> voterNum=new HashMap<>();
         ReturnData returnData=new ReturnData();
