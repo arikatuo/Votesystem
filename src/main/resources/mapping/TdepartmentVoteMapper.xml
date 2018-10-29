@@ -72,4 +72,8 @@
       dv_viid = #{voteInfoId,jdbcType=INTEGER}
     where id = #{Id,jdbcType=INTEGER}
   </update>
+  <delete id="deleteByVoteId" parameterType="java.lang.Integer">
+    delete tdepartment_vote
+    where dv_viid = #{dvViid,jdbcType=INTEGER}
+  </delete>
 </mapper>

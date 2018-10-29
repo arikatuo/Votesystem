@@ -18,10 +18,9 @@ public interface VoteInfoService {
 
     List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId);
 
-
-      
+  
     //更新投票参与员工列表
-    String updateStaffList(Integer voteId,  List<StaffInfo> newStaffList);
+    String updateStaffList(Integer voteId,  List<Integer> newStaffList);
     //更新投票参与部门
     String updateDepart(Integer voteId, Integer departId );
     

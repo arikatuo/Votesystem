@@ -21,4 +21,6 @@ public interface TdepartmentVoteMapper {
     int updateByPrimaryKeySelective(TdepartmentVote record);
 
     int updateByPrimaryKey(TdepartmentVote record);
+    //根据投票ID删除所有相关的部门记录
+    int deleteByVoteId(@Param("dvViid")int voteInfoId);
 }

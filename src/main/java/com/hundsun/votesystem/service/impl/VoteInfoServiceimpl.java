@@ -1,5 +1,6 @@
 package com.hundsun.votesystem.service.impl;
 
+import com.hundsun.votesystem.mapper.TdepartmentVoteMapper;
 import com.hundsun.votesystem.mapper.TstaffVoteMapper;
 import com.hundsun.votesystem.mapper.VoteInfoMapper;
 import com.hundsun.votesystem.model.StaffInfo;
@@ -21,6 +22,8 @@ public class VoteInfoServiceimpl implements VoteInfoService {
     private VoteInfoMapper voteInfoMapper;
     @Autowired
     private TstaffVoteMapper staffVoteMapper;
+    @Autowired
+    private TdepartmentVoteMapper departmentVoteMapper;
 
     @Override
     public VoteInfo selectByPrimaryKey(Integer voteId) {
@@ -44,25 +47,38 @@ public class VoteInfoServiceimpl implements VoteInfoService {
     
     /**
 	 * @Title:updateStaffList
-	 * @Description:更新投票人列表
+	 * @Description:更新投票参与员工列表
 	 * @param1 voteId
-	 * @param2 selStaffList
-	 * @param3 newStaffList
+	 * @param2 newStaffList
+	 * @return String
 	 */
 	@Override
-	public String updateStaffList(Integer voteId,  List<StaffInfo> newStaffList) {
+	public String updateStaffList(Integer voteId,  List<Integer> newStaffList) {
+		int num = staffVoteMapper.deleteByVoteId(voteId);
+		if(num==0) {
+			return "数据异常";
+			}else {
+				for(int staffInfoId:newStaffList) {
+					if(staffVoteMapper.select(staffInfoId, voteId)==1) {
+						break;
+					}
+				    staffVoteMapper.insert(staffInfoId, voteId, 0);
+				}
+				return "更新员工成功";
+			}
 		
-		staffVoteMapper.deleteByVoteId(voteId);
-		for(StaffInfo staffInfo:newStaffList) {
-			staffVoteMapper.insert(staffInfo.getStaffId(), voteId);	
-		}
-		return "更新成功";
 	}
-
+    
 	@Override
-	public String updateDepart(Integer voteId, Integer departId) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateDepart(Integer voteInfoId, Integer departmentId) {
+		int num = departmentVoteMapper.deleteByVoteId(voteInfoId);
+		if(num==0) {
+			return "数据异常";
+			}else {
+				departmentVoteMapper.insertWithOutId(departmentId, voteInfoId);
+				return "更新部门成功";
+			}
+		
 	}
     
 	

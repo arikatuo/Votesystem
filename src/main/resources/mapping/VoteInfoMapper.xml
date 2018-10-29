@@ -12,10 +12,11 @@
     <result column="vi_type" property="voteType" jdbcType="INTEGER" />
     <result column="vi_vtiid" property="voteTaskInfoId" jdbcType="INTEGER" />
     <result column="vi_optionnum" property="voteOptionNum" jdbcType="INTEGER" />
+    <result column="vi_authority_type" property="voteAuthorityType" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
     id, vi_name, vi_createtime, vi_begintime, vi_endtime, vi_status, vi_createrid, vi_type, 
-    vi_vtiid, vi_optionnum
+    vi_vtiid, vi_optionnum, vi_authority_type
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
