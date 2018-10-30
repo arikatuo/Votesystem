@@ -18,8 +18,8 @@
   </select>
 
   <insert id="insert"  >
-    insert into tstaff_vote ( sv_siid, sv_viid)
-    values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER})
+    insert into tstaff_vote ( sv_siid, sv_viid, sv_isvoted)
+    values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER}, #{isVoted,jdbcType=INTEGER})
   </insert>
   <update id="deleteVoter">
     delete tstaff_vote

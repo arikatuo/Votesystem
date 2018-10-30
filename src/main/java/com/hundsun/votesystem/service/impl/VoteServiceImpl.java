@@ -136,7 +136,7 @@ public class VoteServiceImpl implements VoteServiceBase {
         int voteInfoId=voteInfo.getVoteId();
         if(voteAuthorityType==VoteConsant.VOTE_ATHORITY_TYPE_STAFF){
             for(int staffId:stafflist)
-                tstaffVoteMapper.insert(staffId,voteInfoId);
+                tstaffVoteMapper.insert(staffId,voteInfoId,0);
         }
         if(voteAuthorityType==VoteConsant.VOTE_ATHORITY_TYPE_DEPARTMENT){
 
