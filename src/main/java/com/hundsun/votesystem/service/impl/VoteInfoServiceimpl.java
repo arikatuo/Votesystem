@@ -39,9 +39,8 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 
     @Override
     public List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId){
-        List<HashMap<String,Integer>> list=voteInfoMapper.getVoterNum(voteId);
+        List<HashMap<String,Integer>> list=voteInfoMapper.getVoteOptionNum(voteId);
         return list;
-
     }
 
     

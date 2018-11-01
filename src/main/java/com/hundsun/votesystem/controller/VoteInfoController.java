@@ -44,7 +44,7 @@ public class VoteInfoController {
 			} else if (num.size() == 1) {
 				if (state.equals(num.get(0).get("voteState"))) {
 					voterNum.put("hasvote", num.get(0).get("voterNum"));
-					voterNum.put("nosvote", 0);
+					voterNum.put("novote", 0);
 				} else {
 					voterNum.put("novote", num.get(0).get("voterNum"));
 					voterNum.put("hasvote", 0);

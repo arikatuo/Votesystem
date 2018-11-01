@@ -34,7 +34,7 @@ public interface VoteInfoMapper {
     List<HashMap<String,Integer>> getVoterNum(Integer voteId);
 
     //获取选项投票情况
-    List<HashMap<Integer,Integer>> getVoteOptionNum(Integer voteId);
+    List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId);
     
     //更新数据库投票状态
     void updateStatus(@Param("voteId")Integer voteId, @Param("voteStatus")Integer voteStatus);
