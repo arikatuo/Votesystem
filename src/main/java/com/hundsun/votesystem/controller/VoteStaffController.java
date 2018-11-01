@@ -31,7 +31,6 @@ public class VoteStaffController {
     	List<Integer> newStaffIdList = VoteUtils.str2Integerlist(request.getParameter("newStaffIdList"));//投票员工列表
     	ReturnData returnData=new ReturnData();
     	VoteInfo voteInfo = voteInfoService.selectByPrimaryKey(voteId);
-    	System.out.println(voteId+"   "+voteInfo.getVoteId()+"    "+voteInfo.getVoteAuthorityType());
 	    	try {
 	    		if(voteInfo.getVoteAuthorityType()!=1 || voteInfo.getVoteAuthorityType().equals(null)) {
 	    			returnData.setReturnMsg("error");
@@ -40,9 +39,9 @@ public class VoteStaffController {
 	        		
 	        	}else { 
 	    		    String result = voteInfoService.updateStaffList(voteId, newStaffIdList);
-				    if(!result.equals("更新成功")) {
+				    if(!result.equals("更新员工成功")) {
 				    	returnData.setReturnMsg("error");
-						returnData.setReturnMsgDetail("更新失败");
+						returnData.setReturnMsgDetail("更新员工失败");
 						return new Gson().toJson(returnData);
 				    }
 	        	}

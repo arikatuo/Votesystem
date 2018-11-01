@@ -21,7 +21,7 @@
     insert into tstaff_vote ( sv_siid, sv_viid, sv_isvoted)
     values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER}, #{isVoted,jdbcType=INTEGER})
   </insert>
-  <update id="deleteVoter">
+  <update id="deleteVoter" >
     delete tstaff_vote
     where sv_siid = #{svSiid,jdbcType=INTEGER}, sv_viid = #{svViid,jdbcType=INTEGER} 
   </update>
@@ -31,10 +31,10 @@
     from tstaff_vote
     where sv_viid = #{voteId,jdbcType=INTEGER}
   </select>
-  <update id="deleteByVoteId">
-    delete tstaff_vote
+  <delete id="deleteByVoteId"  parameterType="java.lang.Integer">
+    delete from tstaff_vote
     where  sv_viid = #{svViid,jdbcType=INTEGER} 
-  </update>
+  </delete>
 
   <select id="select" resultType="java.lang.Integer" parameterType="java.lang.Integer">
     select count(*)
