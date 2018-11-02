@@ -12,8 +12,8 @@
      svdi_siid, svdi_viid, svdi_voiid,svdi_voidetail,svdi_votetime
   </sql>
 
-    <select id="selectDetail" resultMap="BaseResultMap">
-    select i.svdi_siid ,i.svdi_viid, i.svdi_voiid from tstaff_vote_detail_info i
+    <select id="getDetail" resultType="com.hundsun.votesystem.model.StaffVoteDetail">
+    select i.svdi_siid as staffId,i.svdi_viid as voteId, i.svdi_voiid as voteOptionId from tstaff_vote_detail_info i
     where i.svdi_siid = #{staffId,jdbcType=INTEGER} and  i.svdi_viid= #{voteId,jdbcType=INTEGER}
 
   </select>

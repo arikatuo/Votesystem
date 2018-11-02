@@ -2,6 +2,7 @@ package com.hundsun.votesystem.service;
 
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
+import com.hundsun.votesystem.model.returndata.VoteOptionInfo;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public interface VoteInfoService {
     //获取投票参与人数，已投和未投
     List<HashMap<String,Integer>> getVoterNum(Integer voteInfoId);
     //每个选项有多少人投了
-    List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId);
+    List<VoteOptionInfo> getVoteOptionNum(Integer voteId);
 
   
     //更新投票参与员工列表

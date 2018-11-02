@@ -6,6 +6,7 @@ import com.hundsun.votesystem.mapper.VoteInfoMapper;
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.TstaffVote;
 import com.hundsun.votesystem.model.VoteInfo;
+import com.hundsun.votesystem.model.returndata.VoteOptionInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -38,8 +39,8 @@ public class VoteInfoServiceimpl implements VoteInfoService {
     }
 
     @Override
-    public List<HashMap<String,Integer>> getVoteOptionNum(Integer voteId){
-        List<HashMap<String,Integer>> list=voteInfoMapper.getVoteOptionNum(voteId);
+    public List<VoteOptionInfo> getVoteOptionNum(Integer voteId){
+		List<VoteOptionInfo> list=voteInfoMapper.getVoteOptionNum(voteId);
         return list;
     }
 

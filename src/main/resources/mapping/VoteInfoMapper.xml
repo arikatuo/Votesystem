@@ -176,11 +176,11 @@
     where sv_viid = #{voteId,jdbcType=INTEGER} GROUP BY sv_isvoted DESC
   </select>
 
-  <select id="getVoteOptionNum" resultType="java.util.HashMap" >
+  <select id="getVoteOptionNum" resultType="VoteOptionInfo" >
      SELECT
 	o.voi_name as voteName,
 	s.vsi_num as voteNum,
-	s.vsi_voiid as voteId
+	s.vsi_voiid as voteOptionId
     FROM
 	tvote_option_info o,
 	tvote_situation_info s,
