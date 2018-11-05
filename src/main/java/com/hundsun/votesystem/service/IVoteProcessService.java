@@ -1,8 +1,10 @@
 package com.hundsun.votesystem.service;
 
 
+import com.hundsun.votesystem.model.VoteInfo;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,9 +12,19 @@ import java.util.Map;
  */
 @Service
 public interface IVoteProcessService {
-    String vote(Map<String ,Object> param);
+    void vote(Map<String ,Object> param);
 
     boolean isInStafflist(int staffId, int voteInfoId);
 
     boolean isVoted(int staffId, int voteInfoId);
+
+    VoteInfo selectByPrimaryKey(int voteId);
+
+    List<Map<String,Object>> selectOptionInfo(int voteId);
+
+    Map<String,Object> selectVoteInfo(int voteId);
+
+    List<Integer> selectDepartmentId(int voteId);
+
+    int selectByStaffId(int staffId);
 }

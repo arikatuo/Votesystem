@@ -28,11 +28,11 @@
 
 
   <select id="selectVoteInfoListBycreterId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-  select
-  <include refid="Base_Column_List" />
-  from tvote_info
-  where vi_createrid = #{createrId,jdbcType=INTEGER}
-</select>
+    select
+    <include refid="Base_Column_List" />
+    from tvote_info
+    where vi_createrid = #{createrId,jdbcType=INTEGER}
+  </select>
 
   <select id="selectEndVoteInfoList" resultMap="BaseResultMap"  >
     select
@@ -190,10 +190,16 @@
     AND s.vsi_viid = v.id
     AND v.id = #{voteId,jdbcType=INTEGER}
   </select>
-  
+
   <update id="updateStatus" >
     update tvote_info
     set vi_status = #{voteStatus,jdbcType=INTEGER}
     where id = #{voteId,jdbcType=INTEGER}
   </update>
+
+  <select id = "selectVoteInfo" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+    select vi_name,vi_authority_type,vi_status,vi_type,vi_optionnum
+    from tvote_info
+    where id = #{voteId,jdbcType=INTEGER}
+  </select>
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 @Component
@@ -36,7 +37,10 @@ public interface VoteInfoMapper {
 
     //获取选项投票情况
     List<VoteOptionInfo> getVoteOptionNum(Integer voteId);
-    
+
     //更新数据库投票状态
     void updateStatus(@Param("voteId")Integer voteId, @Param("voteStatus")Integer voteStatus);
+
+    //查询投票主题和投票资格权限
+    Map<String,Object> selectVoteInfo(int voteId);
 }

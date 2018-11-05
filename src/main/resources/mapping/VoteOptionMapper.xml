@@ -9,7 +9,7 @@
     id, voi_name, voi_viid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from tvote_option_info
     where id = #{voteOptionId,jdbcType=INTEGER}
@@ -23,4 +23,9 @@
     values (#{voteOptionName,jdbcType=VARCHAR}, #{voteInfoId,jdbcType=INTEGER})
   </insert>
 
+  <select id = "selectOptionInfo" resultType="hashmap" parameterType="java.lang.Integer">
+    select id,voi_name
+    from tvote_option_info
+    where voi_viid=#{voteId,jdbcType=INTEGER}
+  </select>
 </mapper>

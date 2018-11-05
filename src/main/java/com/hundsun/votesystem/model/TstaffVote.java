@@ -1,7 +1,7 @@
 package com.hundsun.votesystem.model;
 
 public class TstaffVote {
-	
+
 	//投票任务投票人关联表id
 	private Integer id;
 	//投票人id
@@ -34,5 +34,5 @@ public class TstaffVote {
 	public void setSv_isvoted(boolean sv_isvoted) {
 		this.sv_isvoted = sv_isvoted;
 	}
-	
+
 }
