@@ -8,6 +8,12 @@
         <result column="svdi_voiid" property="voteOptionId" jdbcType="INTEGER"/>
     </resultMap>
 
+    <select id="selectVoteInfoIdByPartId" resultType="java.lang.Integer">
+        select
+        svdi_viid
+        from tstaff_vote_detail_info where svdi_siid=#{staffId,jdbcType=INTEGER}
+    </select>
+
     <sql id="Base_Column_List">
      svdi_siid, svdi_viid, svdi_voiid,svdi_voidetail,svdi_votetime
   </sql>

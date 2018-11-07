@@ -106,7 +106,7 @@ public class VoteCreaterController {
                 staffList= VoteUtils.str2Integerlist(request.getParameter("staffList"));
             if(voteAuthorityType==0)
                 departmentId= Integer.parseInt(request.getParameter("departmentId"));
-            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String voteName=request.getParameter("voteName");
             int voteCreaterId= Integer.parseInt(request.getParameter("voteCreaterId"));
             int voteType= Integer.parseInt(request.getParameter("voteType"));
@@ -120,8 +120,9 @@ public class VoteCreaterController {
             //若投票为多选类型，需设置可选择数量
             if(voteType==1)
                 voteOptionNum=Integer.parseInt(request.getParameter("voteOptionNum"));
-            Date voteBeginTime=sdf.parse(request.getParameter("voteBeginTime"));
-            Date voteEndTime= sdf.parse(request.getParameter("voteEndTime"));
+
+            Date voteBeginTime=new Date(Long.parseLong(request.getParameter("voteBeginTime")));
+            Date voteEndTime= new Date(Long.parseLong(request.getParameter("voteEndTime")));
             VoteInfo voteInfo=new VoteInfo(voteName,new Date(),voteBeginTime,voteEndTime,
                     0,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum,voteAuthorityType);
             voteServiceBase.createVote(voteInfo,staffList,voteOptionList,departmentId,voteAuthorityType);
