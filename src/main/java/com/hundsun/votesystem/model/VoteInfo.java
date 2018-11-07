@@ -71,6 +71,17 @@ public class VoteInfo {
     //投票创建者
     private Integer voteCreaterId;
 
+    public String getVoteCreaterName() {
+        return voteCreaterName;
+    }
+
+    public void setVoteCreaterName(String voteCreaterName) {
+        this.voteCreaterName = voteCreaterName;
+    }
+
+    //投票创建者
+    private String voteCreaterName;
+
     //投票类型，单选多选
     private Integer voteType;
 
@@ -82,6 +93,17 @@ public class VoteInfo {
 
     //投票种类
     private Integer voteAuthorityType;
+
+    //是否能提前结束
+    private boolean canEndAhead;
+
+    public boolean isCanEndAhead() {
+        return canEndAhead;
+    }
+
+    public void setCanEndAhead(boolean canEndAhead) {
+        this.canEndAhead = canEndAhead;
+    }
 
     public void setVoteOptionList(List<VoteOption> voteOptionList) {
         this.voteOptionList = voteOptionList;

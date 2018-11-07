@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Mapper
 @Component
 public interface TdepartmentVoteMapper {
@@ -23,4 +25,6 @@ public interface TdepartmentVoteMapper {
     int updateByPrimaryKey(TdepartmentVote record);
     //根据投票ID删除所有相关的部门记录
     int deleteByVoteId(@Param("dvViid")int voteInfoId);
+
+    List<Integer> selectDepartmentId(int voteId);
 }
