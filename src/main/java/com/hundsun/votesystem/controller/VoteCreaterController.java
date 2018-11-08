@@ -92,6 +92,7 @@ public class VoteCreaterController {
     //创建投票
     @PostMapping("createvote")
     public String createVote(HttpServletRequest request, HttpServletResponse response){
+        VoteUtils.kuayuSolution(request,response);
         List<String> voteOptionList = new ArrayList<>();//选项列表
         List<Integer> staffList=new ArrayList<>();//员工列表
         int departmentId=-1;//部门

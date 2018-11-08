@@ -8,6 +8,7 @@ import com.hundsun.votesystem.model.ReturnData;
 import com.hundsun.votesystem.model.VoteOption;
 import com.hundsun.votesystem.model.VotePageInfo;
 import com.hundsun.votesystem.service.impl.VoteProcessServiceImpl;
+import com.hundsun.votesystem.util.VoteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,7 @@ public class VoteController {
     //    获得投票选项页面
     @PostMapping("getVotePage")
     public String getVotePage(HttpServletRequest request,HttpServletResponse response){
+        VoteUtils.kuayuSolution(request,response);
         ReturnData returnData = new ReturnData();
         int voteId = Integer.parseInt(request.getParameter("voteId"));//投票id
         int staffId = Integer.parseInt(request.getParameter("staffId"));//员工id
@@ -92,6 +94,7 @@ public class VoteController {
 
     @PostMapping("vote")
     public  String vote(HttpServletRequest request,HttpServletResponse response){
+        VoteUtils.kuayuSolution(request,response);
         ReturnData returnData  = new ReturnData();
         Map<String,Object> param = new HashMap<String,Object>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
