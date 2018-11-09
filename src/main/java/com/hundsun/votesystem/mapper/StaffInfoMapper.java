@@ -27,4 +27,6 @@ public interface StaffInfoMapper {
     int updateByPrimaryKeySelective(StaffInfo record);
 
     int updateByPrimaryKey(StaffInfo record);
+
+    int selectByStaffId(int staffId);
 }
