@@ -56,4 +56,5 @@ public class VotePageInfo {
 	public void setOptionInfo(List<Map<String, Object>> optionInfo) {
 		this.optionInfo = optionInfo;
 	}
+
 }

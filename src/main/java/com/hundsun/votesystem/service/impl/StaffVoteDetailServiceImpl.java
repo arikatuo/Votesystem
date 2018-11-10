@@ -27,4 +27,5 @@ public class StaffVoteDetailServiceImpl implements StaffVoteDetailService {
     public List<StaffVoteDetail> getDetail(int staffId, int voteId) {
         return staffVoteDetailInfoMapper.getDetail(staffId, voteId);
     }
+
 }
