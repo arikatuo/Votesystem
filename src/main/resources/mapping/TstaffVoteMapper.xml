@@ -51,6 +51,6 @@
   <update id = "changeVoteStatus" >
     update tstaff_vote
     set sv_isvoted = 1
-    where sv_viid = #{voteInfoId,jdbcType=INTEGER} and sv_siid = #{staffId,jdbcType=INTEGER}
+    where sv_viid = #{voteId,jdbcType=INTEGER} and sv_siid = #{staffId,jdbcType=INTEGER}
     </update>
 </mapper>

@@ -16,7 +16,7 @@
     from tstaff_info
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from tstaff_info
     where id = #{staffId,jdbcType=INTEGER}
@@ -98,4 +98,11 @@
       si_departid = #{staffDepartid,jdbcType=INTEGER}
     where id = #{staffId,jdbcType=INTEGER}
   </update>
+
+  <select id = "selectByStaffId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select si_departid
+    from tstaff_info
+    where id = #{staffId}
+  </select>
+
 </mapper>

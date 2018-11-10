@@ -72,14 +72,17 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 	@Override
 	public String updateDepart(Integer voteInfoId, Integer departmentId) {
 		int num = departmentVoteMapper.deleteByVoteId(voteInfoId);
-		if(num==0) {
-			return "数据异常";
-			}else {
+//		if(num==0) {
+//			return "数据异常";
+//			}else {
+				if(departmentVoteMapper.selectDepartmentId(voteInfoId).size()==1) {
+					return "该部门已存在！";
+				}else
 				departmentVoteMapper.insertWithOutId(departmentId, voteInfoId);
 				return "更新部门成功";
 			}
 		
-	}
+	//}
     
 	
 

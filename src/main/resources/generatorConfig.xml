@@ -12,7 +12,7 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://47.91.45.226/votesys?useSSL=false" userId="root" password="123456">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.37.217:8888/votesys?useSSL=false" userId="votesys" password="votesys">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
