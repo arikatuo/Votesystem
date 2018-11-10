@@ -31,7 +31,6 @@ public class VoteStaffController {
     	List<Integer> newStaffIdList = VoteUtils.str2Integerlist(request.getParameter("newStaffIdList"));//投票员工列表
     	ReturnData returnData=new ReturnData();
     	VoteInfo voteInfo = voteInfoService.selectByPrimaryKey(voteId);
-    	System.out.println(voteId+"   "+voteInfo.getVoteId()+"    "+voteInfo.getVoteAuthorityType());
 	    	try {
 	    		if(voteInfo.getVoteAuthorityType()!=1 || voteInfo.getVoteAuthorityType().equals(null)) {
 	    			returnData.setReturnMsg("error");
@@ -40,11 +39,13 @@ public class VoteStaffController {
 	        		
 	        	}else { 
 	    		    String result = voteInfoService.updateStaffList(voteId, newStaffIdList);
-				    if(!result.equals("更新成功")) {
+				    if(!result.equals("更新员工成功")) {
 				    	returnData.setReturnMsg("error");
-						returnData.setReturnMsgDetail("更新失败");
+						returnData.setReturnMsgDetail("更新员工失败");
 						return new Gson().toJson(returnData);
 				    }
+				    returnData.setReturnMsg("success");
+					returnData.setReturnMsgDetail("更新员工成功");
 	        	}
 	    		
 			} catch (Exception ex) {
@@ -61,19 +62,23 @@ public class VoteStaffController {
     public String updateVoterByDepart(int voteId, int departId) {
     	ReturnData returnData=new ReturnData();
     	VoteInfo voteInfo = voteInfoService.selectByPrimaryKey(voteId);
+    	//System.out.println(voteInfo.getVoteAuthorityType());
     	try {
-    		if(voteInfo.getVoteAuthorityType()!=0) {
+    		if(voteInfo.getVoteAuthorityType()!=0 || voteInfo.getVoteAuthorityType().equals(null)) {
     			returnData.setReturnMsg("error");
 				returnData.setReturnMsgDetail("投票资格权限有误！");
 				return new Gson().toJson(returnData);
         		
         	}else { 
     		    String result = voteInfoService.updateDepart(voteId, departId);
-			    if(!result.equals("更新成功")) {
+			    if(!result.equals("更新部门成功")) {
 			    	returnData.setReturnMsg("error");
-					returnData.setReturnMsgDetail("更新失败");
+					returnData.setReturnMsgDetail("更新部门失败");
 					return new Gson().toJson(returnData);
 			    }
+			    returnData.setReturnMsg("success");
+				returnData.setReturnMsgDetail("更新部门成功");
+				//return new Gson().toJson(returnData);
         	}
 		} catch (Exception ex) {
 			returnData.setReturnMsg("error");

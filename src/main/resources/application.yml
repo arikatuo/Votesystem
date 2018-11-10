@@ -6,9 +6,8 @@ spring:
         name: votesystem
     datasource:
         name: test
-        #url: jdbc:mysql://47.91.45.226:3306/votesys?useUnicode=true&characterEncoding=UTF-8&useSSL=false
         url: jdbc:mysql://192.168.37.217:8888/votesys?useUnicode=true&characterEncoding=UTF-8&useSSL=false
-#        url: jdbc:mysql://127.0.0.1:3306/votesys?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+#       url: jdbc:mysql://127.0.0.1:3306/votesys?useUnicode=true&characterEncoding=UTF-8&useSSL=false
         username: votesys
         password: votesys
         # 使用druid数据源

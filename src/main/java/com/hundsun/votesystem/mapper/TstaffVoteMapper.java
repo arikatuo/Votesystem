@@ -39,7 +39,9 @@ public interface TstaffVoteMapper {
     //新增投票和投票员工信息
     int insert(@Param("svSiid") int staffInfoId, @Param("svViid")int voteInfoId, @Param("isVoted")int isVoted);
     //根据投票ID和员工ID删除记录
-    int delete(@Param("svSiid") int staffInfoId,@Param("svViid")  int voteInfoId);
+
+    int delete(@Param("svSiid") int staffInfoId,@Param("svViid")int voteInfoId);
+
 
 
 }
