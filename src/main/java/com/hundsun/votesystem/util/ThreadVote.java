@@ -23,19 +23,25 @@ public class ThreadVote extends Thread{
 	
 	@Override  
     public void run() {
-		//循环日期
-		System.out.println("启动新线程");
-		Calendar ca = Calendar.getInstance();
-		Date curDate = new Date();
-		//curDate.getTime()<=voteInfo.getVoteEndTime().getTime()
-		while(curDate.compareTo(voteInfo.getVoteEndTime())<=0){
-		      ca.setTime(curDate);
-		      //更新投票状态
-		      //System.out.println(voteInfo+"      "+ca.SECOND);
-		      voteServiceBase.updateVoteStatus(voteInfo);
-		      ca.add(ca.SECOND, 1);
-		      curDate = ca.getTime();
-		} 
+		 try {
+			//循环日期
+				System.out.println("启动新线程");
+				Calendar ca = Calendar.getInstance();
+				Date curDate = new Date();
+				//curDate.getTime()<=voteInfo.getVoteEndTime().getTime()
+				do{
+				      ca.setTime(curDate);
+				      //更新投票状态
+				      //System.out.println(voteInfo+"      "+ca.SECOND);
+				      voteServiceBase.updateVoteStatus(voteInfo);
+				      
+				      ca.add(ca.SECOND, 1);
+				      curDate = ca.getTime();
+				} while(curDate.compareTo(voteInfo.getVoteEndTime())<=0);
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+		
 	}
 
 }

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,4 +44,8 @@ public interface VoteInfoMapper {
 
     //查询投票主题和投票资格权限
     Map<String,Object> selectVoteInfo(int voteId);
+    //更新投票结束时间
+	int updateVoteEndtime(@Param("voteEndtime")Date voteEndtime, @Param("voteId")int voteId,@Param("voteStatus")int status);
+	//获取所有投票记录
+	List<VoteInfo> selectAllVoteInfo();
 }

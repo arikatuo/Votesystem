@@ -10,6 +10,7 @@ import com.hundsun.votesystem.model.returndata.VoteOptionInfo;
 import com.hundsun.votesystem.service.VoteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,10 +82,16 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 				departmentVoteMapper.insertWithOutId(departmentId, voteInfoId);
 				return "更新部门成功";
 			}
-		
 	//}
-    
 	
+	@Override
+	public String updateVoteEndtime(Integer voteId) {
+		voteInfoMapper.updateVoteEndtime(new Date(),voteId,2);
+		return "提前结束投票成功";
+	}
+		
+    
+	 
 
 	
 

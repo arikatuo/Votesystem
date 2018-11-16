@@ -202,4 +202,14 @@
     from tvote_info
     where id = #{voteId,jdbcType=INTEGER}
   </select>
+  
+  <update id="updateVoteEndtime" >
+    update tvote_info
+    set vi_endtime = #{voteEndtime,jdbcType=TIMESTAMP},
+        vi_status = #{voteStatus, jdbcType=INTEGER}
+    where id = #{voteId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllVoteInfo" resultMap="BaseResultMap">
+    select * from tvote_info
+  </select>
 </mapper>

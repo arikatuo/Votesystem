@@ -24,6 +24,9 @@ public interface VoteInfoService {
     String updateStaffList(Integer voteId,  List<Integer> newStaffList);
     //更新投票参与部门
     String updateDepart(Integer voteId, Integer departId );
+    //更新投票结束时间
+    String updateVoteEndtime(Integer voteId);
+	
     
     
     

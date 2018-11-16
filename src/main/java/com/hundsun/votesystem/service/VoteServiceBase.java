@@ -34,4 +34,6 @@ public interface VoteServiceBase {
 
     //删除投票
     int deleteVote(int voteInfoId);
+    //获取所有投票记录
+    List<VoteInfo> selectAllVoteInfo();
 }

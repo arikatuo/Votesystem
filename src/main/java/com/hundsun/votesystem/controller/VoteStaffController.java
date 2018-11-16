@@ -1,6 +1,7 @@
 package com.hundsun.votesystem.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,5 +89,35 @@ public class VoteStaffController {
 	
     }
     
+    //提前结束投票
+    @PostMapping("fourceEnd")
+    public String fourceEnd(int voteId) {
+    	ReturnData returnData=new ReturnData();
+    	VoteInfo voteInfo = voteInfoService.selectByPrimaryKey(voteId);
+    	Date curDate = new Date();
+    	String msg = "";
+    	String msgDetail = "";
+    	try {
+	    	if(curDate.compareTo(voteInfo.getVoteEndTime())>0) {
+	    		msg = "error";
+	    		msgDetail = "当前投票状态为已结束";
+	    	}else {
+	    		String result = voteInfoService.updateVoteEndtime(voteId);
+	    		System.out.println(voteInfo.getVoteStatus());
+	    		if(voteInfo.getVoteStatus()!=2) {
+	    			msg = "error";
+	        		msgDetail = "提前结束投票失败";
+			    }
+	    		msg = "success";
+	    		msgDetail = "提前结束投票成功";	
+	    	}
+    	}catch(Exception ex) {
+    		msg = "error";
+    		msgDetail = ex.getMessage();	
+    	}
+    	returnData.setReturnMsg(msg);
+		returnData.setReturnMsgDetail(msgDetail);
+    	return new Gson().toJson(returnData);
+    }
 
 }
