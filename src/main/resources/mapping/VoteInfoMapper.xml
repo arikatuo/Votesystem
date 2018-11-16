@@ -178,17 +178,14 @@
 
   <select id="getVoteOptionNum" resultType="VoteOptionInfo" >
      SELECT
-	o.voi_name as voteName,
-	s.vsi_num as voteNum,
-	s.vsi_voiid as voteOptionId
+	o.voi_name AS voteName,
+	o.id AS voteOptionId,
+	IFNULL(s.vsi_num, 0) AS voteNum
     FROM
-	tvote_option_info o,
-	tvote_situation_info s,
-	tvote_info v
-    WHERE
-	o.id = s.vsi_voiid
-    AND s.vsi_viid = v.id
-    AND v.id = #{voteId,jdbcType=INTEGER}
+	tvote_option_info o
+    LEFT JOIN tvote_info v ON o.voi_viid = v.id
+    LEFT JOIN tvote_situation_info s ON v.id = s.vsi_viid
+    WHERE v.id = #{voteId,jdbcType=INTEGER}
   </select>
 
   <update id="updateStatus" >
