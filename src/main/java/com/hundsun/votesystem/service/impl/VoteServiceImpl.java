@@ -176,7 +176,7 @@ public class VoteServiceImpl implements VoteServiceBase {
 	        } catch (Exception exception) {
 	            exception.printStackTrace();
 	        }
-	        System.out.println("------投票状态已更新------");
+	        //System.out.println("------投票状态已更新------");
 		return;
 
 	}

@@ -86,7 +86,7 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 	
 	@Override
 	public String updateVoteEndtime(Integer voteId) {
-		voteInfoMapper.updateVoteEndtime(new Date(),voteId,2);
+		voteInfoMapper.updateVoteEndtime(new Date(),voteId);
 		return "提前结束投票成功";
 	}
 		

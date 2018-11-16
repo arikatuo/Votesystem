@@ -45,7 +45,7 @@ public interface VoteInfoMapper {
     //查询投票主题和投票资格权限
     Map<String,Object> selectVoteInfo(int voteId);
     //更新投票结束时间
-	int updateVoteEndtime(@Param("voteEndtime")Date voteEndtime, @Param("voteId")int voteId,@Param("voteStatus")int status);
+	int updateVoteEndtime(@Param("voteEndtime")Date voteEndtime, @Param("voteId")int voteId);
 	//获取所有投票记录
 	List<VoteInfo> selectAllVoteInfo();
 }

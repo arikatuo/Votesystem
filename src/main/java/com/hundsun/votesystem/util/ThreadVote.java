@@ -25,7 +25,7 @@ public class ThreadVote extends Thread{
     public void run() {
 		 try {
 			//循环日期
-				System.out.println("启动新线程");
+				//System.out.println("启动新线程");
 				Calendar ca = Calendar.getInstance();
 				Date curDate = new Date();
 				//curDate.getTime()<=voteInfo.getVoteEndTime().getTime()
