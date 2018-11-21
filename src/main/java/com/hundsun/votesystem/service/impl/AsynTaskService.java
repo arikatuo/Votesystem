@@ -16,12 +16,11 @@ public class AsynTaskService {
 	
 	@Async    // 这里进行标注为异步任务，在执行此方法的时候，会单独开启线程来执行
 	public void threadVoteStatus(int voteId) {
-		//if(voteId == 123) {
+		
 			ThreadVote threadVote = new ThreadVote(voteId,voteServiceBase);
-        	System.out.println(ThreadVote.currentThread().getName());
+        	//System.out.println(ThreadVote.currentThread().getName());
             threadVote.start();
 			
-		//}
         	
 	}
 
