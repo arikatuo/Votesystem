@@ -48,4 +48,5 @@ public interface VoteInfoMapper {
 	int updateVoteEndtime(@Param("voteEndtime")Date voteEndtime, @Param("voteId")int voteId);
 	//获取所有投票记录
 	List<VoteInfo> selectAllVoteInfo();
+	
 }

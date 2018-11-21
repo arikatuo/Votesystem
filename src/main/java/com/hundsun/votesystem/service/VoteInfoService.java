@@ -26,7 +26,11 @@ public interface VoteInfoService {
     String updateDepart(Integer voteId, Integer departId );
     //更新投票结束时间
     String updateVoteEndtime(Integer voteId);
-	
+    //更新投票状态
+    VoteInfo updateVoteStatus(int  voteId);
+    //获取所有投票记录
+    List<VoteInfo> selectAllVoteInfo();
+
     
     
     

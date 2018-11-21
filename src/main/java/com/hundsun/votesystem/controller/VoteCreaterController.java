@@ -130,8 +130,8 @@ public class VoteCreaterController {
             returnData.setReturnObject(voteInfo);
          
             //启动一个实时更新的线程
-            ThreadVote threadVote = new ThreadVote(voteInfo,voteServiceBase);
-            threadVote.start();
+           // ThreadVote threadVote = new ThreadVote(voteInfo,voteServiceBase);
+           // threadVote.start();
         }catch (Exception ex){
             returnData.setReturnMsg("error");
             returnData.setReturnMsgDetail(ex.getMessage());

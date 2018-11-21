@@ -90,7 +90,36 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 		return "提前结束投票成功";
 	}
 		
-    
+	 @Override
+		public VoteInfo updateVoteStatus(int voteid) {
+			VoteInfo voteInfo = voteInfoMapper.selectByPrimaryKey(voteid);
+			 Date now = new Date();
+		        try {
+		            Date createtime = voteInfo.getVoteBeginTime();
+		            Date endtime = voteInfo.getVoteEndTime();
+		            if (now.getTime() >= voteInfo.getVoteEndTime().getTime()) {
+		                //System.out.println("------投票已经结束------");
+		                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 2);
+		            } else if (now.getTime() >= createtime.getTime() && now.getTime() < endtime.getTime()) {
+		                //System.out.println("------投票正在进行------");
+		                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 1);
+		            } else if (now.getTime() < createtime.getTime() && now.getTime() < endtime.getTime()){
+		            	//System.out.println("------投票还未开始------");
+		                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 0);
+		            }
+		        } catch (Exception exception) {
+		            exception.printStackTrace();
+		        }
+		        //System.out.println("------投票状态已更新------");
+			return voteInfo;
+
+		}
+
+		@Override
+		public List<VoteInfo> selectAllVoteInfo() {
+			return voteInfoMapper.selectAllVoteInfo();
+			 
+		}
 	 
 
 	

@@ -5,24 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.stereotype.Component;
 
 import com.hundsun.votesystem.model.StaffInfo;
 import com.hundsun.votesystem.model.VoteInfo;
+import com.hundsun.votesystem.service.impl.AsynTaskService;
+import com.hundsun.votesystem.service.impl.VoteInfoServiceimpl;
 import com.hundsun.votesystem.service.impl.VoteServiceImpl;
 
 public class ApplicationStartup implements ApplicationListener<ContextRefreshedEvent> {
+	
 	@Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         ApplicationContext ac = event.getApplicationContext();
-        VoteServiceImpl voteServiceBase = ac.getBean(VoteServiceImpl.class);
+        VoteInfoServiceimpl voteServiceBase = ac.getBean(VoteInfoServiceimpl.class);
+        AsynTaskService asynTaskService = ac.getBean(AsynTaskService.class);
         List<VoteInfo> voteInfoList = voteServiceBase.selectAllVoteInfo();
-        //System.out.println(voteInfoList.size());
         for(VoteInfo voteInfo:voteInfoList) {
-        	//System.out.println(voteInfo.getVoteId());
-        	//if(voteInfo.getVoteId().equals(1)) {
-        	ThreadVote threadVote = new ThreadVote(voteInfo,voteServiceBase);
-            threadVote.start();
-        	//}
+        	asynTaskService.threadVoteStatus(voteInfo.getVoteId());
         }
         
     }

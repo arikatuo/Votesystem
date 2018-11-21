@@ -95,21 +95,20 @@ public class VoteStaffController {
     	ReturnData returnData=new ReturnData();
     	VoteInfo voteInfo = voteInfoService.selectByPrimaryKey(voteId);
     	Date curDate = new Date();
-    	String msg = "";
-    	String msgDetail = "";
+    	String msg = "success";
+    	String msgDetail = "提前结束投票成功";
     	try {
 	    	if(curDate.compareTo(voteInfo.getVoteEndTime())>0) {
 	    		msg = "error";
 	    		msgDetail = "当前投票状态为已结束";
 	    	}else {
-	    		String result = voteInfoService.updateVoteEndtime(voteId);
-	    		System.out.println(voteInfo.getVoteStatus());
-	    		if(voteInfo.getVoteStatus()!=2) {
+	    		voteInfoService.updateVoteEndtime(voteId);
+	    		voteInfo = voteInfoService.selectByPrimaryKey(voteId);
+	    		//System.out.println(voteInfo.getVoteEndTime());
+	    		if(!voteInfo.getVoteStatus().equals(2)) {
 	    			msg = "error";
 	        		msgDetail = "提前结束投票失败";
 			    }
-	    		msg = "success";
-	    		msgDetail = "提前结束投票成功";	
 	    	}
     	}catch(Exception ex) {
     		msg = "error";

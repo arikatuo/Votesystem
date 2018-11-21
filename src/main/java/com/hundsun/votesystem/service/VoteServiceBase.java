@@ -29,11 +29,8 @@ public interface VoteServiceBase {
 
     //创建投票
     int createVote(VoteInfo voteInfo,List<Integer> stafflist,List<String> voteOptionList,int departmentId,int voteAuthorityType);
-    //更新投票状态
-    void updateVoteStatus(VoteInfo voteInfo);
-
+    
     //删除投票
     int deleteVote(int voteInfoId);
-    //获取所有投票记录
-    List<VoteInfo> selectAllVoteInfo();
+    
 }
