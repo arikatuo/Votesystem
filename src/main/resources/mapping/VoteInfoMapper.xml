@@ -49,11 +49,11 @@
     insert into tvote_info (vi_name, vi_createtime,
       vi_begintime, vi_endtime, vi_status, 
       vi_createrid, vi_type, vi_vtiid, 
-      vi_optionnum,vi_authority_type)
+      vi_optionnum,vi_authority_type,vi_introduction)
     values (#{voteName,jdbcType=VARCHAR}, #{voteCreateTime,jdbcType=TIMESTAMP},
       #{voteBeginTime,jdbcType=TIMESTAMP}, #{voteEndTime,jdbcType=TIMESTAMP}, #{voteStatus,jdbcType=INTEGER}, 
       #{voteCreaterId,jdbcType=INTEGER}, #{voteType,jdbcType=INTEGER}, #{voteTaskInfoId,jdbcType=INTEGER}, 
-      #{voteOptionNum,jdbcType=INTEGER},#{voteAuthorityType,jdbcType=INTEGER})
+      #{voteOptionNum,jdbcType=INTEGER},#{voteAuthorityType,jdbcType=INTEGER},#{voteIntroduction,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hundsun.votesystem.model.VoteInfo" >
     insert into tvote_info

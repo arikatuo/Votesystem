@@ -97,6 +97,16 @@ public class VoteInfo {
     //是否能提前结束
     private boolean canEndAhead;
 
+    private String voteIntroduction;
+
+    public String getVoteIntroduction() {
+        return voteIntroduction;
+    }
+
+    public void setVoteIntroduction(String voteIntroduction) {
+        this.voteIntroduction = voteIntroduction;
+    }
+
     public boolean isCanEndAhead() {
         return canEndAhead;
     }
