@@ -31,7 +31,7 @@
     select
     <include refid="Base_Column_List" />
     from tvote_info
-    where vi_createrid = #{createrId,jdbcType=INTEGER}
+    where vi_createrid = #{createrId,jdbcType=INTEGER} order by vi_createtime desc
   </select>
 
   <select id="selectEndVoteInfoList" resultMap="BaseResultMap"  >
