@@ -30,6 +30,8 @@ public class VoteServiceImpl implements VoteServiceBase {
 	private VoteOperationMapper voteOperationMapper;
     @Autowired
     private StaffVoteDetailInfoMapper staffVoteDetailInfoMapper;
+    @Autowired
+    private TdepartmentVoteMapper tdepartmentVoteMapper;
 
     @Override
     public List<StaffInfo> getStaffInfoById(int staffid) {
@@ -139,7 +141,7 @@ public class VoteServiceImpl implements VoteServiceBase {
                 tstaffVoteMapper.insert(staffId,voteInfoId,0);
         }
         if(voteAuthorityType==VoteConsant.VOTE_ATHORITY_TYPE_DEPARTMENT){
-
+                tdepartmentVoteMapper.insertWithOutId(departmentId,voteInfoId);
         }
 
         //效率低，可改一次性插入多条数据

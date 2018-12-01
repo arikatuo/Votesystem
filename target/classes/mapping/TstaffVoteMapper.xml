@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.votesystem.mapper.TstaffVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.hundsun.votesystem.model.TstaffVote" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sv_siid" property="sv_siid" jdbcType="INTEGER" />
+    <result column="sv_viid" property="sv_viid" jdbcType="INTEGER" />
+    <result column="sv_isvoted" property="sv_isvoted" jdbcType="BOOLEAN" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sv_siid, sv_viid, sv_isvoted
+  </sql>
+
+  <select id="getVoteInfoIdList"  resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select sv_viid
+    from tstaff_vote
+    where sv_siid = #{staffId,jdbcType=INTEGER} and sv_isvoted=1
+  </select>
+
+  <insert id="insert"  >
+    insert into tstaff_vote ( sv_siid, sv_viid, sv_isvoted)
+    values (#{svSiid,jdbcType=INTEGER}, #{svViid,jdbcType=INTEGER}, #{isVoted,jdbcType=INTEGER})
+  </insert>
+  <update id="deleteVoter" >
+    delete tstaff_vote
+    where sv_siid = #{svSiid,jdbcType=INTEGER}, sv_viid = #{svViid,jdbcType=INTEGER} 
+  </update>
+  <select id="selectByVoteId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tstaff_vote
+    where sv_viid = #{voteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByVoteId"  parameterType="java.lang.Integer">
+    delete from tstaff_vote
+    where  sv_viid = #{svViid,jdbcType=INTEGER} 
+  </delete>
+
+  <select id="select" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*)
+    from tstaff_vote
+    where sv_viid = #{svViid,jdbcType=INTEGER} and sv_siid = #{svSiid,jdbcType=INTEGER}
+  </select>
+
+  <select id = "selectIsVoted" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select sv_isvoted
+    from tstaff_vote
+    where sv_viid = #{svViid,jdbcType=INTEGER} and sv_siid = #{svSiid,jdbcType=INTEGER}
+  </select>
+
+  <update id = "changeVoteStatus" >
+    update tstaff_vote
+    set sv_isvoted = 1
+    where sv_viid = #{voteId,jdbcType=INTEGER} and sv_siid = #{staffId,jdbcType=INTEGER}
+    </update>
+</mapper>

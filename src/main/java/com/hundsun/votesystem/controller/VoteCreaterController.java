@@ -99,7 +99,7 @@ public class VoteCreaterController {
         ReturnData returnData=new ReturnData();
         try{
             voteOptionList=VoteUtils.str2Stringlist(request.getParameter("voteOptionList"));
-            int voteAuthorityType=1;
+            int voteAuthorityType=-1;
             String voteAuthorityTypeString=request.getParameter("viAuthorityType");
             if(voteAuthorityTypeString!=null)
                 voteAuthorityType= Integer.parseInt(request.getParameter("viAuthorityType"));
@@ -124,8 +124,11 @@ public class VoteCreaterController {
 
             Date voteBeginTime=new Date(Long.parseLong(request.getParameter("voteBeginTime")));
             Date voteEndTime= new Date(Long.parseLong(request.getParameter("voteEndTime")));
+            String voteIntroduction=request.getParameter("voteIntroduction");
             VoteInfo voteInfo=new VoteInfo(voteName,new Date(),voteBeginTime,voteEndTime,
                     0,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum,voteAuthorityType);
+            if(voteIntroduction!=null)
+                voteInfo.setVoteIntroduction(voteIntroduction);
             voteServiceBase.createVote(voteInfo,staffList,voteOptionList,departmentId,voteAuthorityType);
             returnData.setReturnObject(voteInfo);
          

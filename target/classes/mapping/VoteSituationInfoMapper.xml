@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.votesystem.mapper.VoteSituationInfoMapper" >
+
+  <insert id = "insert">
+    insert into tvote_situation_info (vsi_viid, vsi_voiid, vsi_num)
+    values (#{voteId},#{voteOptionId},1)
+  </insert>
+
+  <update id="updateVoteNum"  >
+    update tvote_situation_info
+    set vsi_num = vsi_num+1
+    where vsi_viid = #{voteId,jdbcType=INTEGER} and vsi_voiid = #{voteOptionId,jdbcType=INTEGER}
+  </update>
+
+  <select id="select" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(*)
+    from tvote_situation_info
+    where vsi_viid = #{voteId,jdbcType=INTEGER} and vsi_voiid = #{voteOptionId,jdbcType=INTEGER}
+  </select>
+</mapper>
