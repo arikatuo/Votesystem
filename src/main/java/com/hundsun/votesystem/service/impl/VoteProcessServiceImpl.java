@@ -83,4 +83,27 @@ public class VoteProcessServiceImpl implements IVoteProcessService {
         return staffInfoMapper.selectByStaffId(staffId);
     }
 
+    @Override
+    public void changeStaffVoteStatus(Map<String,Object>param){
+        Integer staffInfoId = (Integer)param.get("staffId");
+        Integer voteInfoId = (Integer)param.get("voteId");
+        tstaffVoteMapper.insert(staffInfoId,voteInfoId,1);
+    }
+
+    @Override
+    public int selectStaffVoteInfo(Map<String,Object>param){
+        Integer staffId = (Integer)param.get("staffId");
+        Integer voteInfoId = (Integer)param.get("voteId");
+        int result = tstaffVoteMapper.select(staffId,voteInfoId);
+        return result;
+    }
+
+    @Override
+    public int StaffVoteInfoNum(int staffId,int voteId){
+        int voteInfoId = voteId;
+        int result = tstaffVoteMapper.select(staffId,voteInfoId);
+        return result;
+    }
+
+
 }

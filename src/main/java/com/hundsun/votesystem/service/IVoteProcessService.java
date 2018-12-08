@@ -27,4 +27,10 @@ public interface IVoteProcessService {
     List<Integer> selectDepartmentId(int voteId);
 
     int selectByStaffId(int staffId);
+
+    void changeStaffVoteStatus(Map<String,Object>param);
+
+    int selectStaffVoteInfo(Map<String,Object>param);
+
+    int StaffVoteInfoNum(int staffId,int voteId);
 }

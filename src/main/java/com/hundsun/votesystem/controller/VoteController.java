@@ -61,7 +61,12 @@ public class VoteController {
                 votePageInfo.setOptionInfo(optionInfo);//整个页面所需信息
                 int voteAuthorityType = (Integer) voteInfo.get("vi_authority_type");//投票资格权限
                 if(voteAuthorityType==-1){
-                    returnData.setReturnObject(votePageInfo);
+                    if (voteProcessService.StaffVoteInfoNum(staffId,voteId)==0){
+                        returnData.setReturnObject(votePageInfo);
+                    }else {
+                        returnData.setReturnMsg("error");
+                        returnData.setReturnMsgDetail("你已经参加过该投票！");
+                    }
                 }else if(voteAuthorityType==0){//指定部门（可能有一个或者多个部门）
                     //查看员工所在部门
                     List<Integer> departIdList = new ArrayList<>();
@@ -123,6 +128,9 @@ public class VoteController {
                 param.put("voteOptionId",voteOptionId);
                 param.put("voteOptionDetail",voteOptionDetail);
                 voteProcessService.vote(param);
+            }
+            if (voteProcessService.StaffVoteInfoNum(staffId,voteId)==0){
+                voteProcessService.changeStaffVoteStatus(param);
             }
             returnData.setReturnMsgDetail("投票成功！");
         }catch (Exception ex){
