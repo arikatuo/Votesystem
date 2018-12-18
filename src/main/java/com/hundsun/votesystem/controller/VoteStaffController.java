@@ -118,5 +118,7 @@ public class VoteStaffController {
 		returnData.setReturnMsgDetail(msgDetail);
     	return new Gson().toJson(returnData);
     }
+    
+    
 
 }

@@ -33,4 +33,6 @@ public interface VoteServiceBase {
     //删除投票
     int deleteVote(int voteInfoId);
     
+   
+    
 }
