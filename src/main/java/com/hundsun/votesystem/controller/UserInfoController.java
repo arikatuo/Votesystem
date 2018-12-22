@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hundsun.votesystem.util.VoteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ public class UserInfoController {
 	//用户登陆
     @PostMapping("userLogin")
     public String userLogin(HttpServletRequest request,HttpServletResponse response) {
+		VoteUtils.kuayuSolution(request,response);
     	String staffnum = request.getParameter("staffnum") ;
     	String staffname = request.getParameter("staffname");
     	ReturnData returnData=new ReturnData();
