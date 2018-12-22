@@ -123,8 +123,19 @@ public class VoteServiceImpl implements VoteServiceBase {
               voteInfoWithStaffNumsEnd.add(v);
       }
        for(VoteInfoWithStaffNum v:voteInfoWithStaffNumsParticipant){
-           if(v.getVoteStatus()==2)
+           if(v.getVoteStatus()==2){
+               boolean isExist=false;
+               for(VoteInfoWithStaffNum voteInfoWithStaffNum:voteInfoWithStaffNumsEnd){
+                   if(voteInfoWithStaffNum.getVoteId().intValue()==v.getVoteId().intValue()){
+                       isExist=true;
+                       break;
+                   }
+               }
+               if(isExist)
+                   continue;
                voteInfoWithStaffNumsEnd.add(v);
+           }
+
        }
 
        voteInfoMap.put(VoteConsant.VOTE_END,voteInfoWithStaffNumsEnd);
