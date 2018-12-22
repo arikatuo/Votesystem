@@ -125,8 +125,15 @@ public class VoteCreaterController {
             Date voteBeginTime=new Date(Long.parseLong(request.getParameter("voteBeginTime")));
             Date voteEndTime= new Date(Long.parseLong(request.getParameter("voteEndTime")));
             String voteIntroduction=request.getParameter("voteIntroduction");
+            int voteStatus=0;
+            Date currentDate=new Date();
+            if(voteBeginTime.before(currentDate)&&voteEndTime.after(currentDate)){
+                voteStatus=1;
+            }else if(voteEndTime.before(currentDate)){
+                voteStatus=2;
+            }
             VoteInfo voteInfo=new VoteInfo(voteName,new Date(),voteBeginTime,voteEndTime,
-                    0,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum,voteAuthorityType);
+                    voteStatus,voteCreaterId,voteType,voteTaskInfoId,voteOptionNum,voteAuthorityType);
             if(voteIntroduction!=null)
                 voteInfo.setVoteIntroduction(voteIntroduction);
             voteServiceBase.createVote(voteInfo,staffList,voteOptionList,departmentId,voteAuthorityType);
