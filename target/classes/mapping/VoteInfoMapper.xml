@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.votesystem.mapper.VoteInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hundsun.votesystem.model.VoteInfo" >
+    <id column="id" property="voteId" jdbcType="INTEGER" />
+    <result column="vi_name" property="voteName" jdbcType="VARCHAR" />
+    <result column="vi_createtime" property="voteCreateTime" jdbcType="TIMESTAMP" />
+    <result column="vi_begintime" property="voteBeginTime" jdbcType="TIMESTAMP" />
+    <result column="vi_endtime" property="voteEndTime" jdbcType="TIMESTAMP" />
+    <result column="vi_status" property="voteStatus" jdbcType="INTEGER" />
+    <result column="vi_createrid" property="voteCreaterId" jdbcType="INTEGER" />
+    <result column="vi_type" property="voteType" jdbcType="INTEGER" />
+    <result column="vi_vtiid" property="voteTaskInfoId" jdbcType="INTEGER" />
+    <result column="vi_optionnum" property="voteOptionNum" jdbcType="INTEGER" />
+    <result column="vi_authority_type" property="voteAuthorityType" jdbcType="INTEGER"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, vi_name, vi_createtime, vi_begintime, vi_endtime, vi_status, vi_createrid, vi_type, 
+    vi_vtiid, vi_optionnum, vi_authority_type
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tvote_info
+    where id = #{voteId,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectVoteInfoListBycreterId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tvote_info
+    where vi_createrid = #{createrId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectEndVoteInfoList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from tvote_info
+    where vi_status = 2
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tvote_info
+    where id = #{voteId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hundsun.votesystem.model.VoteInfo" useGeneratedKeys="true" keyProperty="voteId" >
+    insert into tvote_info (vi_name, vi_createtime,
+      vi_begintime, vi_endtime, vi_status, 
+      vi_createrid, vi_type, vi_vtiid, 
+      vi_optionnum,vi_authority_type)
+    values (#{voteName,jdbcType=VARCHAR}, #{voteCreateTime,jdbcType=TIMESTAMP},
+      #{voteBeginTime,jdbcType=TIMESTAMP}, #{voteEndTime,jdbcType=TIMESTAMP}, #{voteStatus,jdbcType=INTEGER}, 
+      #{voteCreaterId,jdbcType=INTEGER}, #{voteType,jdbcType=INTEGER}, #{voteTaskInfoId,jdbcType=INTEGER}, 
+      #{voteOptionNum,jdbcType=INTEGER},#{voteAuthorityType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hundsun.votesystem.model.VoteInfo" >
+    insert into tvote_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="voteId != null" >
+        id,
+      </if>
+      <if test="voteName != null" >
+        vi_name,
+      </if>
+      <if test="voteCreateTime != null" >
+        vi_createtime,
+      </if>
+      <if test="voteBeginTime != null" >
+        vi_begintime,
+      </if>
+      <if test="voteEndTime != null" >
+        vi_endtime,
+      </if>
+      <if test="voteStatus != null" >
+        vi_status,
+      </if>
+      <if test="voteCreaterId != null" >
+        vi_createrid,
+      </if>
+      <if test="voteType != null" >
+        vi_type,
+      </if>
+      <if test="voteTaskInfoId != null" >
+        vi_vtiid,
+      </if>
+      <if test="voteOptionNum != null" >
+        vi_optionnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="voteId != null" >
+        #{voteId,jdbcType=INTEGER},
+      </if>
+      <if test="voteName != null" >
+        #{voteName,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCreateTime != null" >
+        #{voteCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteBeginTime != null" >
+        #{voteBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteEndTime != null" >
+        #{voteEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteStatus != null" >
+        #{voteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="voteCreaterId != null" >
+        #{voteCreaterId,jdbcType=INTEGER},
+      </if>
+      <if test="voteType != null" >
+        #{voteType,jdbcType=INTEGER},
+      </if>
+      <if test="voteTaskInfoId != null" >
+        #{voteTaskInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="voteOptionNum != null" >
+        #{voteOptionNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hundsun.votesystem.model.VoteInfo" >
+    update tvote_info
+    <set >
+      <if test="voteName != null" >
+        vi_name = #{voteName,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCreateTime != null" >
+        vi_createtime = #{voteCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteBeginTime != null" >
+        vi_begintime = #{voteBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteEndTime != null" >
+        vi_endtime = #{voteEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voteStatus != null" >
+        vi_status = #{voteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="voteCreaterId != null" >
+        vi_createrid = #{voteCreaterId,jdbcType=INTEGER},
+      </if>
+      <if test="voteType != null" >
+        vi_type = #{voteType,jdbcType=INTEGER},
+      </if>
+      <if test="voteTaskInfoId != null" >
+        vi_vtiid = #{voteTaskInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="voteOptionNum != null" >
+        vi_optionnum = #{voteOptionNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{voteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hundsun.votesystem.model.VoteInfo" >
+    update tvote_info
+    set vi_name = #{voteName,jdbcType=VARCHAR},
+      vi_createtime = #{voteCreateTime,jdbcType=TIMESTAMP},
+      vi_begintime = #{voteBeginTime,jdbcType=TIMESTAMP},
+      vi_endtime = #{voteEndTime,jdbcType=TIMESTAMP},
+      vi_status = #{voteStatus,jdbcType=INTEGER},
+      vi_createrid = #{voteCreaterId,jdbcType=INTEGER},
+      vi_type = #{voteType,jdbcType=INTEGER},
+      vi_vtiid = #{voteTaskInfoId,jdbcType=INTEGER},
+      vi_optionnum = #{voteOptionNum,jdbcType=INTEGER}
+    where id = #{voteId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getVoterNum" resultType="java.util.HashMap" >
+     select
+    COUNT(id) as voterNum , sv_isvoted as voteState
+    from tstaff_vote
+    where sv_viid = #{voteId,jdbcType=INTEGER} GROUP BY sv_isvoted DESC
+  </select>
+
+  <select id="getVoteOptionNum" resultType="VoteOptionInfo" >
+     SELECT
+	o.voi_name AS voteName,
+	o.id AS voteOptionId,
+	IFNULL(s.vsi_num, 0) AS voteNum
+    FROM
+	tvote_option_info o
+    LEFT JOIN tvote_info v ON o.voi_viid = v.id
+    LEFT JOIN tvote_situation_info s ON v.id = s.vsi_viid
+    WHERE v.id = #{voteId,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateStatus" flushCache="true" >
+    update tvote_info
+    set vi_status = #{voteStatus,jdbcType=INTEGER}
+    where id = #{voteId,jdbcType=INTEGER}
+  </update>
+
+  <select id = "selectVoteInfo" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+    select vi_name,vi_authority_type,vi_status,vi_type,vi_optionnum
+    from tvote_info
+    where id = #{voteId,jdbcType=INTEGER}
+  </select>
+  
+  <update id="updateVoteEndtime" flushCache="true">
+    update tvote_info
+    set vi_endtime = #{voteEndtime,jdbcType=TIMESTAMP}
+    where id = #{voteId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllVoteInfo" resultMap="BaseResultMap" flushCache="true">
+    select * from tvote_info
+  </select>
+  
+</mapper>

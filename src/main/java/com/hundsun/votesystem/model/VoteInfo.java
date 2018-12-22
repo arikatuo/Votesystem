@@ -1,10 +1,11 @@
 package com.hundsun.votesystem.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class VoteInfo {
+public class VoteInfo implements Serializable{
 
 
     public List<VoteOption> getVoteOptionList() {
@@ -22,8 +23,8 @@ public class VoteInfo {
 
     public VoteInfo(VoteInfo vi){
         this.voteName = vi.voteName;
-        //this.voteBeginTime = vi.voteBeginTime;
-        //this.voteEndTime = vi.voteEndTime;
+        this.voteBeginTime = vi.voteBeginTime;
+        this.voteEndTime = vi.voteEndTime;
         this.voteStatus =vi. voteStatus;
         this.voteCreaterId = vi.voteCreaterId;
         this.voteType = vi.voteType;

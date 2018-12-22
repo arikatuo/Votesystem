@@ -19,7 +19,7 @@ import java.util.*;
 public class VoteServiceImpl implements VoteServiceBase {
 
     @Autowired
-    private StaffInfoMapper staffInfoMapper;
+    private StaffInfoMapper staffInfoMapper; 
     @Autowired
     private VoteInfoMapper voteInfoMapper;
     @Autowired
@@ -156,42 +156,8 @@ public class VoteServiceImpl implements VoteServiceBase {
     }
 
     @Override
-	public void updateVoteStatus(VoteInfo voteInfo) {
-		//VoteInfo vote = voteInfoMapper.selectByPrimaryKey(voteid);
-    	
-		//System.out.println("当前更新投票ID：  "+voteInfo.getVoteId());
-		 Date now = new Date();
-	        try {
-	            Date createtime = voteInfo.getVoteBeginTime();
-	            Date endtime = voteInfo.getVoteEndTime();
-	            //System.out.println(now.getTime());
-	            if (now.getTime() >= endtime.getTime()) {
-	                //System.out.println("------投票已经结束------");
-	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 2);
-	            } else if (now.getTime() >= createtime.getTime() && now.getTime() < endtime.getTime()) {
-	                //System.out.println("------投票正在进行------");
-	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 1);
-	            } else if (now.getTime() < createtime.getTime() && now.getTime() < endtime.getTime()){
-	            	//System.out.println("------投票还未开始------");
-	                voteInfoMapper.updateStatus(voteInfo.getVoteId(), 0);
-	            }
-	        } catch (Exception exception) {
-	            exception.printStackTrace();
-	        }
-	        //System.out.println("------投票状态已更新------");
-		return;
-
-	}
-
-	@Override
 	public int deleteVote(int voteInfoId){
 		int num=voteOperationMapper.deleteVote(voteInfoId);
     	return num;
-	}
-
-	@Override
-	public List<VoteInfo> selectAllVoteInfo() {
-		return voteInfoMapper.selectAllVoteInfo();
-		 
 	}
 }

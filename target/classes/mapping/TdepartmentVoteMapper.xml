@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hundsun.votesystem.mapper.TdepartmentVoteMapper" >
+  <resultMap id="BaseResultMap" type="com.hundsun.votesystem.model.TdepartmentVote" >
+    <id column="id" property="Id" jdbcType="INTEGER" />
+    <result column="dv_diid" property="departMentId" jdbcType="INTEGER" />
+    <result column="dv_viid" property="voteInfoId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dv_diid, dv_viid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from tdepartment_vote
+    where id = #{Id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tdepartment_vote
+    where id = #{Id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertWithOutId"  >
+    insert into tdepartment_vote ( dv_diid, dv_viid )
+    values ( #{dvDiid,jdbcType=INTEGER}, #{dvViid,jdbcType=INTEGER} )
+  </insert>
+  <insert id="insert" parameterType="com.hundsun.votesystem.model.TdepartmentVote" >
+    insert into tdepartment_vote (id, dv_diid, dv_viid
+      )
+    values (#{Id,jdbcType=INTEGER}, #{departMentId,jdbcType=INTEGER}, #{voteInfoId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hundsun.votesystem.model.TdepartmentVote" >
+    insert into tdepartment_vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="Id != null" >
+        id,
+      </if>
+      <if test="departMentId != null" >
+        dv_diid,
+      </if>
+      <if test="voteInfoId != null" >
+        dv_viid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="Id != null" >
+        #{Id,jdbcType=INTEGER},
+      </if>
+      <if test="departMentId != null" >
+        #{departMentId,jdbcType=INTEGER},
+      </if>
+      <if test="voteInfoId != null" >
+        #{voteInfoId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hundsun.votesystem.model.TdepartmentVote" >
+    update tdepartment_vote
+    <set >
+      <if test="departMentId != null" >
+        dv_diid = #{departMentId,jdbcType=INTEGER},
+      </if>
+      <if test="voteInfoId != null" >
+        dv_viid = #{voteInfoId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{Id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hundsun.votesystem.model.TdepartmentVote" >
+    update tdepartment_vote
+    set dv_diid = #{departMentId,jdbcType=INTEGER},
+      dv_viid = #{voteInfoId,jdbcType=INTEGER}
+    where id = #{Id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteByVoteId" parameterType="java.lang.Integer">
+    delete from tdepartment_vote
+    where dv_viid = #{dvViid,jdbcType=INTEGER}
+  </delete>
+
+  <select id = "selectDepartmentId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select  dv_diid
+    from tdepartment_vote
+    where dv_viid = #{voteId}
+  </select>
+</mapper>

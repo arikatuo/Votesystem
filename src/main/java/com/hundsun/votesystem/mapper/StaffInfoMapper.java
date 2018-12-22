@@ -18,7 +18,7 @@ public interface StaffInfoMapper {
 
     StaffInfo selectByPrimaryKey(Integer staffId);
 
-    StaffInfo selectByStaffNum(String staffNum);
+    StaffInfo selectByStaffNum(@Param("staffNum")String staffNum);
 
     List<StaffInfo> selectByDepId(Integer depId);
 
