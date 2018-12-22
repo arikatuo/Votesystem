@@ -177,16 +177,22 @@
     where sv_viid = #{voteId,jdbcType=INTEGER} GROUP BY sv_isvoted DESC
   </select>
 
-  <select id="getVoteOptionNum" resultType="VoteOptionInfo" >
-     SELECT
+  <select id="getVoteOptionInfo" resultType="VoteOptionInfo" >
+    SELECT
 	o.voi_name AS voteName,
-	o.id AS voteOptionId,
-	IFNULL(s.vsi_num, 0) AS voteNum
+	o.id AS voteOptionId
     FROM
 	tvote_option_info o
-    LEFT JOIN tvote_info v ON o.voi_viid = v.id
-    LEFT JOIN tvote_situation_info s ON v.id = s.vsi_viid
-    WHERE v.id = #{voteId,jdbcType=INTEGER}
+    WHERE
+	o.voi_viid =#{voteId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getVotedOptionNum" resultType="java.lang.Integer">
+    SELECT
+    s.vsi_num
+    from
+    tvote_situation_info s
+    WHERE s.vsi_voiid = #{voteOptionId,jdbcType=INTEGER}
   </select>
 
   <update id="updateStatus" flushCache="true" >

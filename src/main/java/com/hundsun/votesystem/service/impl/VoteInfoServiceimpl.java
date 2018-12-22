@@ -41,7 +41,10 @@ public class VoteInfoServiceimpl implements VoteInfoService {
 
     @Override
     public List<VoteOptionInfo> getVoteOptionNum(Integer voteId){
-		List<VoteOptionInfo> list=voteInfoMapper.getVoteOptionNum(voteId);
+		List<VoteOptionInfo> list=voteInfoMapper.getVoteOptionInfo(voteId);
+		for (VoteOptionInfo voteOptionInfo:list){
+			voteOptionInfo.setVoteNum(voteInfoMapper.getVotedOptionNum(voteOptionInfo.getVoteOptionId())==null?0:voteInfoMapper.getVotedOptionNum(voteOptionInfo.getVoteOptionId()));
+		}
         return list;
     }
 
