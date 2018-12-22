@@ -91,7 +91,9 @@ public class VoteStaffController {
     
     //提前结束投票
     @PostMapping("fourceEnd")
-    public String fourceEnd(int voteId) {
+    public String fourceEnd(HttpServletRequest request, HttpServletResponse response) {
+		VoteUtils.kuayuSolution(request,response);
+		int voteId =Integer.parseInt(request.getParameter("voteId"));
     	ReturnData returnData=new ReturnData();
     	VoteInfo voteInfo = voteInfoService.selectByPrimaryKey(voteId);
     	Date curDate = new Date();
