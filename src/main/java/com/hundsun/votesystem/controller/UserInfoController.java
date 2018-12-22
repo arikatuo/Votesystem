@@ -33,6 +33,7 @@ public class UserInfoController {
     	try {
     			for(StaffInfo staffInfo : staffInfoList) {
         			if(staffInfo!=null && staffInfo.getSiName().equals(staffname)) {
+        	            returnData.setReturnObject(staffInfo);
         				returnData.setReturnMsg("success");
         				returnData.setReturnMsgDetail("用户登陆成功！");
         				return new Gson().toJson(returnData);
