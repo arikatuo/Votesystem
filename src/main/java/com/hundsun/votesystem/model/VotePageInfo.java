@@ -12,7 +12,17 @@ public class VotePageInfo {
     private List<Map<String,Object>> optionInfo;
     //投票种类，多选还是单选
     private int voteType;
-    //若多选最多几个选项
+
+	public String getVoteIntroduction() {
+		return voteIntroduction;
+	}
+
+	public void setVoteIntroduction(String voteIntroduction) {
+		this.voteIntroduction = voteIntroduction;
+	}
+
+	//若多选最多几个选项
+	private String voteIntroduction;
 
     public int getVoteType() {
         return voteType;

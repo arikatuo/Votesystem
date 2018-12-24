@@ -49,6 +49,7 @@ public class VoteController {
                 votePageInfo.setVoteId(voteId);
                 votePageInfo.setVoteType((Integer)voteInfo.get("vi_type"));//投票类型
                 votePageInfo.setOptionNum((Integer)voteInfo.get("vi_optionnum"));//选项个数
+                votePageInfo.setVoteIntroduction((String)voteInfo.get("vi_introduction"));
                 //查询选项id、选项名
                 List<Map<String,Object>> optionInfo = voteProcessService.selectOptionInfo(voteId);
                 for (Map<String,Object>item:optionInfo){
